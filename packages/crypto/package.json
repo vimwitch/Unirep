@@ -5,7 +5,9 @@
     "scripts": {
         "build": "tsc",
         "test": "echo 'No test for crypto!!!'",
-        "lint": "prettier --write ."
+        "lint": "prettier --write .",
+        "prepublish": "echo 'nothing'"
+
     },
     "repository": "https://github.com/Unirep/crypto.git",
     "author": "vivianjeng <vivi432@yahoo.com.tw>",

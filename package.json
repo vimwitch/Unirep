@@ -19,7 +19,7 @@
         "test": "yarn workspaces run test",
         "lint": "prettier --write .",
         "prepare": "husky install",
-        "prepublish": "yarn build"
+        "prepublish": "yarn workspaces run prepublish"
     },
     "devDependencies": {
         "@nomiclabs/hardhat-ethers": "^2.0.2",
