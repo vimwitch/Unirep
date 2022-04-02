@@ -5,7 +5,7 @@ import assert from 'assert'
 import { ethers } from 'ethers'
 const circom = require('circom')
 import Keyv from 'keyv'
-import * as crypto from '@root/crypto'
+import * as crypto from '@unirep/crypto'
 
 import {
     EPOCH_TREE_DEPTH,
@@ -14,7 +14,7 @@ import {
     MAX_REPUTATION_BUDGET,
     NUM_ATTESTATIONS_PER_PROOF,
     NUM_EPOCH_KEY_NONCE_PER_EPOCH,
-} from '@root/config'
+} from '@unirep/config'
 
 import { Circuit } from '../config'
 
@@ -22,9 +22,8 @@ import {
     executeCircuit,
     genProofAndPublicSignals,
     verifyProof,
-} from '@circuits/utils'
+} from '~circuits/utils'
 import { expect } from 'chai'
-import { IncrementalMerkleTree, SparseMerkleTree } from '@root/crypto'
 
 const SMT_ZERO_LEAF = crypto.hashLeftRight(BigInt(0), BigInt(0))
 const SMT_ONE_LEAF = crypto.hashLeftRight(BigInt(1), BigInt(0))
@@ -170,7 +169,11 @@ const toCompleteHexString = (str: string, len?: number): string => {
 }
 
 const genNewSMT = async (treeDepth: number, defaultLeafHash: BigInt) => {
-    return SparseMerkleTree.create(new Keyv(), treeDepth, defaultLeafHash)
+    return crypto.SparseMerkleTree.create(
+        new Keyv(),
+        treeDepth,
+        defaultLeafHash
+    )
 }
 
 const genNewEpochTree = async (_epochTreeDepth: number = EPOCH_TREE_DEPTH) => {
@@ -187,7 +190,11 @@ const defaultUserStateLeaf = crypto.hash5([
 ])
 
 const computeEmptyUserStateRoot = (treeDepth: number): BigInt => {
-    const t = new IncrementalMerkleTree(treeDepth, defaultUserStateLeaf, 2)
+    const t = new crypto.IncrementalMerkleTree(
+        treeDepth,
+        defaultUserStateLeaf,
+        2
+    )
     return t.root
 }
 

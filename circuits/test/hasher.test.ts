@@ -5,8 +5,8 @@ import {
     genRandomSalt,
     hashLeftRight,
     hash5,
-} from '@root/crypto'
-import { executeCircuit, getSignalByName } from '@circuits/utils'
+} from '@unirep/crypto'
+import { executeCircuit, getSignalByName } from '~circuits/utils'
 import { compileAndLoadCircuit } from './utils'
 
 const hasher5CircuitPath = path.join(

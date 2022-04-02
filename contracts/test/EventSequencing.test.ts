@@ -2,16 +2,16 @@
 import { ethers as hardhatEthers } from 'hardhat'
 import { BigNumber, BigNumberish, ethers } from 'ethers'
 import { expect } from 'chai'
-import { genRandomSalt, ZkIdentity } from '@root/crypto'
-import { formatProofForSnarkjsVerification } from '@root/circuits'
+import { genRandomSalt, ZkIdentity } from '@unirep/crypto'
+import { formatProofForSnarkjsVerification } from '@unirep/circuits'
 import {
     ATTESTTING_FEE,
     EPOCH_LENGTH,
     MAX_REPUTATION_BUDGET,
     NUM_EPOCH_KEY_NONCE_PER_EPOCH,
-} from '@root/config'
-import { deployUnirep, EpochKeyProof, Event } from '@root/contracts'
-import { Unirep } from '@root/typechain'
+} from '@unirep/config'
+import { deployUnirep, EpochKeyProof, Event } from '@unirep/contracts'
+import { Unirep } from '@unirep/typechain'
 
 import { genEpochKey, getTreeDepthsForTesting, Attestation } from './utils'
 

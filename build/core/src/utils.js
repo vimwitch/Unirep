@@ -5,15 +5,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.genUserStateFromParams = exports.genUserStateFromContract = exports.genUnirepStateFromParams = exports.genUnirepStateFromContract = exports.genNewSMT = exports.genReputationNullifier = exports.genEpochKeyNullifier = exports.genEpochKey = exports.verifyUSTEvents = exports.verifyUserStateTransitionEvent = exports.verifyProcessAttestationEvents = exports.verifyProcessAttestationEvent = exports.verifyStartTransitionProofEvent = exports.verifySignUpProofEvent = exports.verifyReputationProofEvent = exports.verifyEpochKeyProofEvent = exports.formatProofForSnarkjsVerification = exports.computeInitUserStateRoot = exports.computeEmptyUserStateRoot = exports.SMT_ZERO_LEAF = exports.SMT_ONE_LEAF = exports.defaultUserStateLeaf = void 0;
 const keyv_1 = __importDefault(require("keyv"));
-const contracts_1 = require("@root/contracts");
-const crypto_1 = require("@root/crypto");
-const config_1 = require("@root/config");
+const contracts_1 = require("@unirep/contracts");
+const crypto_1 = require("@unirep/crypto");
+const config_1 = require("@unirep/config");
 const UnirepState_1 = require("./UnirepState");
 const UserState_1 = require("./UserState");
-const nullifierDomainSeparator_1 = require("@root/config/nullifierDomainSeparator");
-const circuits_1 = require("@root/circuits");
+const nullifierDomainSeparator_1 = require("@unirep/config/nullifierDomainSeparator");
+const circuits_1 = require("@unirep/circuits");
 Object.defineProperty(exports, "formatProofForSnarkjsVerification", { enumerable: true, get: function () { return circuits_1.formatProofForSnarkjsVerification; } });
-const defaults_1 = require("@root/cli/defaults");
+const defaults_1 = require("@unirep/cli/defaults");
 const defaultUserStateLeaf = (0, crypto_1.hash5)([
     BigInt(0),
     BigInt(0),

@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
-import { Unirep, UnirepFactory } from '@root/contracts'
-import { Attestation } from '@root/core/src'
+import { Unirep, UnirepFactory } from '@unirep/contracts'
+import { Attestation } from '@unirep/core/src'
 
 import { DEFAULT_ETH_PROVIDER } from './defaults'
 import { getProvider } from './utils'

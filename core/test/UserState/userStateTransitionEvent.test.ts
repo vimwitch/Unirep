@@ -2,15 +2,15 @@
 import { ethers as hardhatEthers } from 'hardhat'
 import { BigNumber, ethers } from 'ethers'
 import { expect } from 'chai'
-import { ZkIdentity, genRandomSalt, hashLeftRight } from '@root/crypto'
-import { formatProofForVerifierContract } from '@root/circuits'
+import { ZkIdentity, genRandomSalt, hashLeftRight } from '@unirep/crypto'
+import { formatProofForVerifierContract } from '@unirep/circuits'
 import {
     deployUnirep,
     EpochKeyProof,
     UserTransitionProof,
     computeStartTransitionProofHash,
     computeProcessAttestationsProofHash,
-} from '@root/contracts'
+} from '@unirep/contracts'
 import {
     computeInitUserStateRoot,
     genUnirepStateFromContract,
@@ -19,14 +19,14 @@ import {
     Reputation,
     UnirepState,
     UserState,
-} from '@root/core/src'
+} from '@unirep/core/src'
 import {
     ATTESTTING_FEE,
     EPOCH_LENGTH,
     MAX_ATTESTERS,
     MAX_REPUTATION_BUDGET,
     NUM_EPOCH_KEY_NONCE_PER_EPOCH,
-} from '@root/config'
+} from '@unirep/config'
 
 import {
     genNewGST,

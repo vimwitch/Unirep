@@ -6,8 +6,10 @@ import {
     ZkIdentity,
     SparseMerkleTree,
     IncrementalMerkleTree,
-} from '@root/crypto'
-import { executeCircuit, getSignalByName, Circuit } from '@circuits/utils'
+} from '@unirep/crypto'
+import { executeCircuit, getSignalByName, Circuit } from '~circuits/utils'
+import { GLOBAL_STATE_TREE_DEPTH } from '@unirep/config'
+
 import {
     compileAndLoadCircuit,
     genStartTransitionCircuitInput,
@@ -15,8 +17,6 @@ import {
     genProofAndVerify,
 } from './utils'
 import { startTransitionCircuitPath } from '../config'
-
-import { GLOBAL_STATE_TREE_DEPTH } from '@root/config'
 
 const circuitPath = path.join(__dirname, '../', startTransitionCircuitPath)
 

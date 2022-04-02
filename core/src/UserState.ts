@@ -7,8 +7,8 @@ import {
     hashLeftRight,
     SparseMerkleTree,
     ZkIdentity,
-} from '@root/crypto'
-import { Circuit, genProofAndPublicSignals } from '@root/circuits'
+} from '@unirep/crypto'
+import { Circuit, genProofAndPublicSignals } from '@unirep/circuits'
 import {
     defaultUserStateLeaf,
     genEpochKey,
@@ -21,7 +21,7 @@ import {
     MAX_REPUTATION_BUDGET,
     NUM_EPOCH_KEY_NONCE_PER_EPOCH,
     NUM_ATTESTATIONS_PER_PROOF,
-} from '@root/config'
+} from '@unirep/config'
 
 interface IUserStateLeaf {
     attesterId: BigInt

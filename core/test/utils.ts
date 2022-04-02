@@ -11,14 +11,14 @@ import {
     genRandomSalt,
     stringifyBigInts,
     ZkIdentity,
-} from '@root/crypto'
-import { Circuit, verifyProof } from '@root/circuits'
+} from '@unirep/crypto'
+import { Circuit, verifyProof } from '@unirep/circuits'
 import {
     EPOCH_TREE_DEPTH,
     GLOBAL_STATE_TREE_DEPTH,
     USER_STATE_TREE_DEPTH,
     MAX_REPUTATION_BUDGET,
-} from '@root/config'
+} from '@unirep/config'
 
 import { Attestation, genEpochKey, Reputation, UnirepState } from '../src'
 

@@ -1,8 +1,8 @@
 import { DEFAULT_ETH_PROVIDER } from './defaults'
 import { getProvider } from './utils'
-import { Unirep, UnirepFactory } from '@root/contracts'
+import { Unirep, UnirepFactory } from '@unirep/contracts'
 import { ethers } from 'ethers'
-import { EPOCH_LENGTH } from '@root/config'
+import { EPOCH_LENGTH } from '@unirep/config'
 
 const configureSubparser = (subparsers: any) => {
     const parser = subparsers.add_parser('epochTransition', { add_help: true })

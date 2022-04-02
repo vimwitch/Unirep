@@ -7,14 +7,14 @@ import {
     genRandomSalt,
     hashLeftRight,
     IncrementalMerkleTree,
-} from '@root/crypto'
-import { Circuit, genProofAndPublicSignals } from '@root/circuits'
-import { deployUnirep, SignUpProof } from '@root/contracts'
+} from '@unirep/crypto'
+import { Circuit, genProofAndPublicSignals } from '@unirep/circuits'
+import { deployUnirep, SignUpProof } from '@unirep/contracts'
 import {
     computeInitUserStateRoot,
     genUnirepStateFromContract,
     Reputation,
-} from '@root/core/src'
+} from '@unirep/core/src'
 
 import {
     genNewGST,
@@ -30,7 +30,7 @@ import {
     MAX_ATTESTERS,
     MAX_REPUTATION_BUDGET,
     NUM_EPOCH_KEY_NONCE_PER_EPOCH,
-} from '@root/config'
+} from '@unirep/config'
 
 describe('User sign up proof (Airdrop proof) events in Unirep State', function () {
     this.timeout(0)

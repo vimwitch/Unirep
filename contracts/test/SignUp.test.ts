@@ -2,8 +2,8 @@
 import { ethers as hardhatEthers } from 'hardhat'
 import { ethers } from 'ethers'
 import { expect } from 'chai'
-import { ZkIdentity } from '@root/crypto'
-import { deployUnirep } from '@root/contracts'
+import { ZkIdentity } from '@unirep/crypto'
+import { deployUnirep } from '@unirep/contracts'
 import {
     ATTESTTING_FEE,
     EPOCH_LENGTH,
@@ -12,8 +12,8 @@ import {
     MAX_REPUTATION_BUDGET,
     NUM_EPOCH_KEY_NONCE_PER_EPOCH,
     USER_STATE_TREE_DEPTH,
-} from '@root/config'
-import { Unirep } from '@root/typechain'
+} from '@unirep/config'
+import { Unirep } from '@unirep/typechain'
 
 import { getTreeDepthsForTesting } from './utils'
 

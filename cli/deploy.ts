@@ -1,5 +1,5 @@
 import { ethers } from 'ethers'
-import { deployUnirep } from '@root/contracts'
+import { deployUnirep } from '@unirep/contracts'
 
 import {
     DEFAULT_ATTESTING_FEE,
@@ -20,7 +20,7 @@ import {
     MAX_REPUTATION_BUDGET,
     MAX_USERS,
     USER_STATE_TREE_DEPTH,
-} from '@root/config'
+} from '@unirep/config'
 
 const configureSubparser = (subparsers: any) => {
     const deployParser = subparsers.add_parser('deploy', { add_help: true })

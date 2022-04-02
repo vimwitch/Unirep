@@ -1,7 +1,7 @@
 import * as path from 'path'
 import { expect } from 'chai'
-import { genRandomSalt, ZkIdentity, hashOne } from '@root/crypto'
-import { Circuit, executeCircuit } from '@circuits/utils'
+import { genRandomSalt, ZkIdentity, hashOne } from '@unirep/crypto'
+import { Circuit, executeCircuit } from '~circuits/utils'
 import {
     genEpochKey,
     Reputation,
@@ -11,7 +11,7 @@ import {
     genProofAndVerify,
 } from './utils'
 import { proveUserSignUpCircuitPath } from '../config'
-import { EPOCH_TREE_DEPTH } from '@root/config'
+import { EPOCH_TREE_DEPTH } from '@unirep/config'
 const circuitPath = path.join(__dirname, '../', proveUserSignUpCircuitPath)
 
 describe('Prove user has signed up circuit', function () {

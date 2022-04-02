@@ -7,8 +7,8 @@ import {
     hashLeftRight,
     IncrementalMerkleTree,
     ZkIdentity,
-} from '@root/crypto'
-import { Circuit } from '@root/circuits'
+} from '@unirep/crypto'
+import { Circuit } from '@unirep/circuits'
 
 import {
     GLOBAL_STATE_TREE_DEPTH,
@@ -18,8 +18,8 @@ import {
     MAX_USERS,
     NUM_EPOCH_KEY_NONCE_PER_EPOCH,
     ATTESTTING_FEE,
-} from '@root/config'
-import { deployUnirep, UserTransitionProof } from '@root/contracts'
+} from '@unirep/config'
+import { deployUnirep, UserTransitionProof } from '@unirep/contracts'
 
 import {
     getTreeDepthsForTesting,

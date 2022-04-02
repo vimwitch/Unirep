@@ -7,15 +7,15 @@ import {
     ZkIdentity,
     hashLeftRight,
     IncrementalMerkleTree,
-} from '@root/crypto'
-import { Circuit, genProofAndPublicSignals } from '@root/circuits'
-import { deployUnirep, EpochKeyProof, Unirep } from '@root/contracts'
+} from '@unirep/crypto'
+import { Circuit, genProofAndPublicSignals } from '@unirep/circuits'
+import { deployUnirep, EpochKeyProof, Unirep } from '@unirep/contracts'
 import {
     computeInitUserStateRoot,
     genUnirepStateFromContract,
     Reputation,
     UserState,
-} from '@root/core/src'
+} from '@unirep/core/src'
 import {
     ATTESTTING_FEE,
     EPOCH_LENGTH,
@@ -23,7 +23,7 @@ import {
     MAX_ATTESTERS,
     MAX_REPUTATION_BUDGET,
     NUM_EPOCH_KEY_NONCE_PER_EPOCH,
-} from '@root/config'
+} from '@unirep/config'
 
 import {
     genEpochKeyCircuitInput,

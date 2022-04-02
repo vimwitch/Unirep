@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
 import base64url from 'base64url'
-import { Unirep, UnirepFactory } from '@root/contracts'
+import { Unirep, UnirepFactory } from '@unirep/contracts'
 
 import { DEFAULT_ETH_PROVIDER } from './defaults'
 import { identityCommitmentPrefix } from './prefix'

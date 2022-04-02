@@ -2,8 +2,8 @@
 import { ethers as hardhatEthers } from 'hardhat'
 import { ethers } from 'ethers'
 import { expect } from 'chai'
-import { ZkIdentity, genRandomSalt } from '@root/crypto'
-import { Circuit } from '@root/circuits'
+import { ZkIdentity, genRandomSalt } from '@unirep/crypto'
+import { Circuit } from '@unirep/circuits'
 
 import {
     getTreeDepthsForTesting,
@@ -13,7 +13,7 @@ import {
     genProveSignUpCircuitInput,
     genInputForContract,
 } from './utils'
-import { deployUnirep } from '@root/contracts'
+import { deployUnirep } from '@unirep/contracts'
 import {
     ATTESTTING_FEE,
     EPOCH_LENGTH,
@@ -21,7 +21,7 @@ import {
     MAX_REPUTATION_BUDGET,
     MAX_USERS,
     NUM_EPOCH_KEY_NONCE_PER_EPOCH,
-} from '@root/config'
+} from '@unirep/config'
 
 describe('Airdrop', function () {
     this.timeout(100000)

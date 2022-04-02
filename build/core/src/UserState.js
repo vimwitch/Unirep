@@ -5,10 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserState = exports.Reputation = void 0;
 const assert_1 = __importDefault(require("assert"));
-const crypto_1 = require("@root/crypto");
-const circuits_1 = require("@root/circuits");
+const crypto_1 = require("@unirep/crypto");
+const circuits_1 = require("@unirep/circuits");
 const utils_1 = require("./utils");
-const config_1 = require("@root/config");
+const config_1 = require("@unirep/config");
 class Reputation {
     constructor(_posRep, _negRep, _graffiti, _signUp) {
         this.graffitiPreImage = BigInt(0);

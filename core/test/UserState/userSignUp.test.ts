@@ -2,14 +2,14 @@
 import { ethers as hardhatEthers } from 'hardhat'
 import { ethers } from 'ethers'
 import { expect } from 'chai'
-import { ZkIdentity, hashLeftRight } from '@root/crypto'
-import { deployUnirep } from '@root/contracts'
+import { ZkIdentity, hashLeftRight } from '@unirep/crypto'
+import { deployUnirep } from '@unirep/contracts'
 import {
     computeInitUserStateRoot,
     genUnirepStateFromContract,
     genUserStateFromContract,
     Reputation,
-} from '@root/core/src'
+} from '@unirep/core/src'
 import {
     ATTESTTING_FEE,
     EPOCH_LENGTH,
@@ -17,7 +17,7 @@ import {
     MAX_ATTESTERS,
     MAX_REPUTATION_BUDGET,
     NUM_ATTESTATIONS_PER_PROOF,
-} from '@root/config'
+} from '@unirep/config'
 
 import { genNewGST, getTreeDepthsForTesting } from '../utils'
 

@@ -5,8 +5,8 @@ import {
     IncrementalMerkleTree,
     hashOne,
     SnarkBigInt,
-} from '@root/crypto'
-import { executeCircuit, getSignalByName } from '@circuits/utils'
+} from '@unirep/crypto'
+import { executeCircuit, getSignalByName } from '~circuits/utils'
 import { compileAndLoadCircuit } from './utils'
 
 const LEVELS = 4

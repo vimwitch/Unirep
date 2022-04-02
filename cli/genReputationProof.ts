@@ -1,14 +1,14 @@
 import base64url from 'base64url'
-import { ZkIdentity, Strategy } from '@root/crypto'
+import { ZkIdentity, Strategy } from '@unirep/crypto'
 import {
     Circuit,
     formatProofForVerifierContract,
     verifyProof,
-} from '@root/circuits'
+} from '@unirep/circuits'
 import {
     genReputationNullifier,
     genUserStateFromContract,
-} from '@root/core/src'
+} from '@unirep/core/src'
 
 import { DEFAULT_ETH_PROVIDER } from './defaults'
 import {
@@ -17,7 +17,7 @@ import {
     reputationProofPrefix,
 } from './prefix'
 import { getProvider } from './utils'
-import { MAX_REPUTATION_BUDGET } from '@root/config'
+import { MAX_REPUTATION_BUDGET } from '@unirep/config'
 
 const configureSubparser = (subparsers: any) => {
     const parser = subparsers.add_parser('genReputationProof', {

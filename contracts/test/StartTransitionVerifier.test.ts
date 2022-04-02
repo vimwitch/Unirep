@@ -7,10 +7,13 @@ import {
     ZkIdentity,
     SparseMerkleTree,
     IncrementalMerkleTree,
-} from '@root/crypto'
-import { Circuit } from '@root/circuits'
-import { GLOBAL_STATE_TREE_DEPTH } from '@root/config'
-import { computeStartTransitionProofHash, deployUnirep } from '@root/contracts'
+} from '@unirep/crypto'
+import { Circuit } from '@unirep/circuits'
+import { GLOBAL_STATE_TREE_DEPTH } from '@unirep/config'
+import {
+    computeStartTransitionProofHash,
+    deployUnirep,
+} from '@unirep/contracts'
 
 import {
     genStartTransitionCircuitInput,

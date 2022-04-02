@@ -1,7 +1,7 @@
 import * as path from 'path'
 import { expect } from 'chai'
-import { genRandomSalt, hash5, ZkIdentity } from '@root/crypto'
-import { executeCircuit, getSignalByName, Circuit } from '@circuits/utils'
+import { genRandomSalt, hash5, ZkIdentity } from '@unirep/crypto'
+import { executeCircuit, getSignalByName, Circuit } from '~circuits/utils'
 import {
     Attestation,
     compileAndLoadCircuit,
@@ -11,7 +11,7 @@ import {
 } from './utils'
 import { processAttestationsCircuitPath } from '../config'
 
-import { NUM_ATTESTATIONS_PER_PROOF } from '@root/config'
+import { NUM_ATTESTATIONS_PER_PROOF } from '@unirep/config'
 
 const circuitPath = path.join(__dirname, '../', processAttestationsCircuitPath)
 

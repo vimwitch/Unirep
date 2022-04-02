@@ -2,13 +2,13 @@
 import { ethers as hardhatEthers } from 'hardhat'
 import { ethers } from 'ethers'
 import { expect } from 'chai'
-import { Circuit } from '@root/circuits'
+import { Circuit } from '@unirep/circuits'
 import {
     genRandomSalt,
     ZkIdentity,
     hashLeftRight,
     IncrementalMerkleTree,
-} from '@root/crypto'
+} from '@unirep/crypto'
 import {
     ATTESTTING_FEE,
     GLOBAL_STATE_TREE_DEPTH,
@@ -17,7 +17,7 @@ import {
     MAX_REPUTATION_BUDGET,
     MAX_USERS,
     NUM_EPOCH_KEY_NONCE_PER_EPOCH,
-} from '@root/config'
+} from '@unirep/config'
 import {
     computeProcessAttestationsProofHash,
     computeStartTransitionProofHash,
@@ -25,7 +25,7 @@ import {
     ReputationProof,
     SignUpProof,
     UserTransitionProof,
-} from '@root/contracts'
+} from '@unirep/contracts'
 
 import {
     getTreeDepthsForTesting,

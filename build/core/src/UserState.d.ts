@@ -1,4 +1,4 @@
-import { IncrementalMerkleTree, SparseMerkleTree, ZkIdentity } from '@root/crypto';
+import { IncrementalMerkleTree, SparseMerkleTree, ZkIdentity } from '@unirep/crypto';
 import { IAttestation, IUnirepState, UnirepState } from './UnirepState';
 interface IUserStateLeaf {
     attesterId: BigInt;

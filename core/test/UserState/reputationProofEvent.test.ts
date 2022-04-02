@@ -7,9 +7,9 @@ import {
     ZkIdentity,
     hashLeftRight,
     IncrementalMerkleTree,
-} from '@root/crypto'
-import { Circuit, genProofAndPublicSignals } from '@root/circuits'
-import { deployUnirep, EpochKeyProof, ReputationProof } from '@root/contracts'
+} from '@unirep/crypto'
+import { Circuit, genProofAndPublicSignals } from '@unirep/circuits'
+import { deployUnirep, EpochKeyProof, ReputationProof } from '@unirep/contracts'
 import {
     computeInitUserStateRoot,
     genReputationNullifier,
@@ -17,7 +17,7 @@ import {
     genUserStateFromContract,
     Attestation,
     Reputation,
-} from '@root/core/src'
+} from '@unirep/core/src'
 
 import {
     genNewGST,
@@ -33,7 +33,7 @@ import {
     MAX_ATTESTERS,
     MAX_REPUTATION_BUDGET,
     NUM_EPOCH_KEY_NONCE_PER_EPOCH,
-} from '@root/config'
+} from '@unirep/config'
 
 describe('Reputation proof events in Unirep User State', function () {
     this.timeout(0)

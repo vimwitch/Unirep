@@ -1,5 +1,5 @@
 import base64url from 'base64url'
-import { ZkIdentity } from '@root/crypto'
+import { ZkIdentity } from '@unirep/crypto'
 
 import { identityPrefix, identityCommitmentPrefix } from './prefix'
 

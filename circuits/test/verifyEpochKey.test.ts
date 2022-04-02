@@ -5,7 +5,7 @@ import {
     hashLeftRight,
     IncrementalMerkleTree,
     ZkIdentity,
-} from '@root/crypto'
+} from '@unirep/crypto'
 import {
     Circuit,
     executeCircuit,
@@ -13,13 +13,13 @@ import {
     formatProofForVerifierContract,
     genProofAndPublicSignals,
     verifyProof,
-} from '@circuits/utils'
+} from '~circuits/utils'
 
 import {
     EPOCH_TREE_DEPTH,
     GLOBAL_STATE_TREE_DEPTH,
     NUM_EPOCH_KEY_NONCE_PER_EPOCH,
-} from '@root/config'
+} from '@unirep/config'
 
 import { verifyEpochKeyCircuitPath } from '../config'
 import {
