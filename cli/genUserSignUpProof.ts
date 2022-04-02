@@ -1,11 +1,11 @@
 import base64url from 'base64url'
-import { ZkIdentity, Strategy } from '@unirep/crypto'
+import { ZkIdentity, Strategy } from '../crypto'
 import {
     Circuit,
     formatProofForVerifierContract,
     verifyProof,
-} from '@unirep/circuits'
-import { genUserStateFromContract } from '@unirep/core/src'
+} from '../circuits'
+import { genUserStateFromContract } from '../core'
 
 import { DEFAULT_ETH_PROVIDER } from './defaults'
 import {

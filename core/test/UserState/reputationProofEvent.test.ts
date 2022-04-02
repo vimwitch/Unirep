@@ -17,7 +17,7 @@ import {
     genUserStateFromContract,
     Attestation,
     Reputation,
-} from '@unirep/core/src'
+} from '@unirep/core'
 
 import {
     genNewGST,

@@ -1,8 +1,8 @@
 import base64url from 'base64url'
-import { ReputationProof, Unirep, UnirepFactory } from '@unirep/contracts'
-import { formatProofForSnarkjsVerification } from '@unirep/circuits'
-import { genUnirepStateFromContract } from '@unirep/core/src'
-import { MAX_REPUTATION_BUDGET } from '@unirep/config'
+import { ReputationProof, Unirep, UnirepFactory } from '../contracts'
+import { formatProofForSnarkjsVerification } from '../circuits'
+import { genUnirepStateFromContract } from '../core'
+import { MAX_REPUTATION_BUDGET } from '../config'
 
 import { DEFAULT_ETH_PROVIDER } from './defaults'
 import { reputationProofPrefix, reputationPublicSignalsPrefix } from './prefix'

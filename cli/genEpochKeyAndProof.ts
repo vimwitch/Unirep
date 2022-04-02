@@ -1,11 +1,12 @@
 import base64url from 'base64url'
-import { Strategy, ZkIdentity } from '@unirep/crypto'
+import { Strategy, ZkIdentity } from '../crypto'
 import {
     Circuit,
     formatProofForVerifierContract,
     verifyProof,
-} from '@unirep/circuits'
-import { genUserStateFromContract, genEpochKey } from '@unirep/core/src'
+} from '../circuits'
+import { genUserStateFromContract, genEpochKey } from '../core'
+import { EPOCH_TREE_DEPTH } from '../config'
 
 import { DEFAULT_ETH_PROVIDER, DEFAULT_MAX_EPOCH_KEY_NONCE } from './defaults'
 import {
@@ -14,7 +15,6 @@ import {
     identityPrefix,
 } from './prefix'
 import { getProvider } from './utils'
-import { EPOCH_TREE_DEPTH } from '@unirep/config'
 
 const configureSubparser = (subparsers: any) => {
     const parser = subparsers.add_parser('genEpochKeyAndProof', {

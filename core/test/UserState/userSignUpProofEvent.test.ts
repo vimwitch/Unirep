@@ -15,7 +15,7 @@ import {
     genUnirepStateFromContract,
     genUserStateFromContract,
     Reputation,
-} from '@unirep/core/src'
+} from '@unirep/core'
 import {
     ATTESTTING_FEE,
     EPOCH_LENGTH,

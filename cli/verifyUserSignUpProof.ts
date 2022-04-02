@@ -1,9 +1,9 @@
 import base64url from 'base64url'
-import { SignUpProof, Unirep, UnirepFactory } from '@unirep/contracts'
-import { formatProofForSnarkjsVerification } from '@unirep/circuits'
+import { SignUpProof, Unirep, UnirepFactory } from '../contracts'
+import { formatProofForSnarkjsVerification } from '../circuits'
 
 import { DEFAULT_ETH_PROVIDER } from './defaults'
-import { genUnirepStateFromContract } from '@unirep/core/src'
+import { genUnirepStateFromContract } from '../core'
 import { signUpProofPrefix, signUpPublicSignalsPrefix } from './prefix'
 import { getProvider } from './utils'
 

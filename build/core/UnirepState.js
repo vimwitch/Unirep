@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UnirepState = exports.Attestation = void 0;
 const assert_1 = __importDefault(require("assert"));
 const ethers_1 = require("ethers");
-const crypto_1 = require("../../crypto");
+const crypto_1 = require("../crypto");
 const utils_1 = require("./utils");
 class Attestation {
     constructor(_attesterId, _posRep, _negRep, _graffiti, _signUp) {

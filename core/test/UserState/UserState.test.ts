@@ -8,7 +8,7 @@ import {
     Reputation,
     UnirepState,
     UserState,
-} from '@unirep/core/src'
+} from '@unirep/core'
 import { genNewGST, genRandomAttestation } from '../utils'
 import {
     ATTESTTING_FEE,

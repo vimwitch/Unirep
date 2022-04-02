@@ -1,5 +1,13 @@
 import { ethers } from 'ethers'
-import { deployUnirep } from '@unirep/contracts'
+import { deployUnirep } from '../contracts'
+import {
+    EPOCH_TREE_DEPTH,
+    GLOBAL_STATE_TREE_DEPTH,
+    MAX_ATTESTERS,
+    MAX_REPUTATION_BUDGET,
+    MAX_USERS,
+    USER_STATE_TREE_DEPTH,
+} from '../config'
 
 import {
     DEFAULT_ATTESTING_FEE,
@@ -13,14 +21,6 @@ import {
     getProvider,
     validateEthSk,
 } from './utils'
-import {
-    EPOCH_TREE_DEPTH,
-    GLOBAL_STATE_TREE_DEPTH,
-    MAX_ATTESTERS,
-    MAX_REPUTATION_BUDGET,
-    MAX_USERS,
-    USER_STATE_TREE_DEPTH,
-} from '@unirep/config'
 
 const configureSubparser = (subparsers: any) => {
     const deployParser = subparsers.add_parser('deploy', { add_help: true })

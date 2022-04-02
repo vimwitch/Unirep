@@ -1,5 +1,5 @@
 import { BigNumberish, ethers } from 'ethers';
-import { IncrementalMerkleTree, SparseMerkleTree } from '../../crypto';
+import { IncrementalMerkleTree, SparseMerkleTree } from '../crypto';
 interface IEpochTreeLeaf {
     epochKey: BigInt;
     hashchainResult: BigInt;

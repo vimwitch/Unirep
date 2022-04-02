@@ -23,7 +23,7 @@ import {
     Reputation,
     UnirepState,
     UserState,
-} from '@unirep/core/src'
+} from '@unirep/core'
 
 import {
     genEpochKeyCircuitInput,

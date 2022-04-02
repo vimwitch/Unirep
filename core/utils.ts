@@ -1,15 +1,20 @@
 import { ethers } from 'ethers'
 import Keyv from 'keyv'
-import { getUnirepContract, Event, AttestationEvent } from '@unirep/contracts'
+import { getUnirepContract, Event, AttestationEvent } from '../contracts'
+import {
+    Circuit,
+    formatProofForSnarkjsVerification,
+    verifyProof,
+} from '../circuits'
 import {
     hash5,
     hashLeftRight,
     IncrementalMerkleTree,
     SnarkBigInt,
     SparseMerkleTree,
-} from '@unirep/crypto'
+} from '../crypto'
 
-import { EPOCH_TREE_DEPTH } from '@unirep/config'
+import { EPOCH_TREE_DEPTH } from '../config'
 import {
     Attestation,
     IEpochTreeLeaf,
@@ -17,18 +22,18 @@ import {
     IUnirepState,
     UnirepState,
 } from './UnirepState'
-import { IUserState, IUserStateLeaf, Reputation, UserState } from './UserState'
+import {
+    IUserState,
+    IUserStateLeaf,
+    Reputation,
+    UserState,
+    IAttestation,
+} from '../core'
 import {
     EPOCH_KEY_NULLIFIER_DOMAIN,
     REPUTATION_NULLIFIER_DOMAIN,
-} from '@unirep/config/nullifierDomainSeparator'
-import {
-    Circuit,
-    formatProofForSnarkjsVerification,
-    verifyProof,
-} from '@unirep/circuits'
-import { IAttestation } from '@unirep/core/src'
-import { DEFAULT_START_BLOCK } from '@unirep/cli/defaults'
+} from '../config/nullifierDomainSeparator'
+import { DEFAULT_START_BLOCK } from '../cli/defaults'
 
 const defaultUserStateLeaf = hash5([
     BigInt(0),

@@ -30,6 +30,6 @@ Object.defineProperty(exports, "genUnirepStateFromContract", { enumerable: true,
 Object.defineProperty(exports, "genUnirepStateFromParams", { enumerable: true, get: function () { return utils_1.genUnirepStateFromParams; } });
 Object.defineProperty(exports, "genUserStateFromContract", { enumerable: true, get: function () { return utils_1.genUserStateFromContract; } });
 Object.defineProperty(exports, "genUserStateFromParams", { enumerable: true, get: function () { return utils_1.genUserStateFromParams; } });
-const nullifierDomainSeparator_1 = require("../../config/nullifierDomainSeparator");
+const nullifierDomainSeparator_1 = require("../config/nullifierDomainSeparator");
 Object.defineProperty(exports, "EPOCH_KEY_NULLIFIER_DOMAIN", { enumerable: true, get: function () { return nullifierDomainSeparator_1.EPOCH_KEY_NULLIFIER_DOMAIN; } });
 Object.defineProperty(exports, "REPUTATION_NULLIFIER_DOMAIN", { enumerable: true, get: function () { return nullifierDomainSeparator_1.REPUTATION_NULLIFIER_DOMAIN; } });

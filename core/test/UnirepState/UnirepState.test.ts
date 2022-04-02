@@ -1,10 +1,6 @@
 import { expect } from 'chai'
 import { genRandomSalt, hashLeftRight } from '@unirep/crypto'
-import {
-    computeInitUserStateRoot,
-    ISettings,
-    UnirepState,
-} from '@unirep/core/src'
+import { computeInitUserStateRoot, ISettings, UnirepState } from '@unirep/core'
 import { genNewGST, genRandomAttestation } from '../utils'
 import {
     ATTESTTING_FEE,

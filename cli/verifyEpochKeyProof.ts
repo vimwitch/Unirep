@@ -1,7 +1,7 @@
 import base64url from 'base64url'
-import { EpochKeyProof, Unirep, UnirepFactory } from '@unirep/contracts'
-import { formatProofForSnarkjsVerification } from '@unirep/circuits'
-import { genUnirepStateFromContract } from '@unirep/core/src'
+import { EpochKeyProof, Unirep, UnirepFactory } from '../contracts'
+import { formatProofForSnarkjsVerification } from '../circuits'
+import { genUnirepStateFromContract } from '../core'
 
 import { DEFAULT_ETH_PROVIDER } from './defaults'
 import { epkProofPrefix, epkPublicSignalsPrefix } from './prefix'

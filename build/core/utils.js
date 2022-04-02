@@ -5,15 +5,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.genUserStateFromParams = exports.genUserStateFromContract = exports.genUnirepStateFromParams = exports.genUnirepStateFromContract = exports.genNewSMT = exports.genReputationNullifier = exports.genEpochKeyNullifier = exports.genEpochKey = exports.verifyUSTEvents = exports.verifyUserStateTransitionEvent = exports.verifyProcessAttestationEvents = exports.verifyProcessAttestationEvent = exports.verifyStartTransitionProofEvent = exports.verifySignUpProofEvent = exports.verifyReputationProofEvent = exports.verifyEpochKeyProofEvent = exports.formatProofForSnarkjsVerification = exports.computeInitUserStateRoot = exports.computeEmptyUserStateRoot = exports.SMT_ZERO_LEAF = exports.SMT_ONE_LEAF = exports.defaultUserStateLeaf = void 0;
 const keyv_1 = __importDefault(require("keyv"));
-const contracts_1 = require("@unirep/contracts");
-const crypto_1 = require("@unirep/crypto");
-const config_1 = require("@unirep/config");
-const UnirepState_1 = require("./UnirepState");
-const UserState_1 = require("./UserState");
-const nullifierDomainSeparator_1 = require("@unirep/config/nullifierDomainSeparator");
-const circuits_1 = require("@unirep/circuits");
+const contracts_1 = require("../contracts");
+const circuits_1 = require("../circuits");
 Object.defineProperty(exports, "formatProofForSnarkjsVerification", { enumerable: true, get: function () { return circuits_1.formatProofForSnarkjsVerification; } });
-const defaults_1 = require("@unirep/cli/defaults");
+const crypto_1 = require("../crypto");
+const config_1 = require("../config");
+const UnirepState_1 = require("./UnirepState");
+const core_1 = require("../core");
+const nullifierDomainSeparator_1 = require("../config/nullifierDomainSeparator");
+const defaults_1 = require("../cli/defaults");
 const defaultUserStateLeaf = (0, crypto_1.hash5)([
     BigInt(0),
     BigInt(0),
@@ -34,7 +34,7 @@ exports.computeEmptyUserStateRoot = computeEmptyUserStateRoot;
 const computeInitUserStateRoot = async (treeDepth, leafIdx, airdropPosRep) => {
     const t = await crypto_1.SparseMerkleTree.create(new keyv_1.default(), treeDepth, defaultUserStateLeaf);
     if (leafIdx && airdropPosRep) {
-        const airdropReputation = new UserState_1.Reputation(BigInt(airdropPosRep), BigInt(0), BigInt(0), BigInt(1));
+        const airdropReputation = new core_1.Reputation(BigInt(airdropPosRep), BigInt(0), BigInt(0), BigInt(1));
         const leafValue = airdropReputation.hash();
         await t.update(BigInt(leafIdx), leafValue);
     }
@@ -515,7 +515,7 @@ const genUserStateFromParams = (userIdentity, _userState) => {
         const parsedLeaf = JSON.parse(_userState.latestUserStateLeaves[key]);
         const leaf = {
             attesterId: BigInt(key),
-            reputation: new UserState_1.Reputation(BigInt(parsedLeaf.posRep), BigInt(parsedLeaf.negRep), BigInt(parsedLeaf.graffiti), BigInt(parsedLeaf.signUp)),
+            reputation: new core_1.Reputation(BigInt(parsedLeaf.posRep), BigInt(parsedLeaf.negRep), BigInt(parsedLeaf.graffiti), BigInt(parsedLeaf.signUp)),
         };
         userStateLeaves.push(leaf);
     }
@@ -527,7 +527,7 @@ const genUserStateFromParams = (userIdentity, _userState) => {
             transitionedFromAttestations[key].push(attestation);
         }
     }
-    const userState = new UserState_1.UserState(unirepState, userIdentity, _userState.hasSignedUp, _userState.latestTransitionedEpoch, _userState.latestGSTLeafIndex, userStateLeaves, transitionedFromAttestations);
+    const userState = new core_1.UserState(unirepState, userIdentity, _userState.hasSignedUp, _userState.latestTransitionedEpoch, _userState.latestGSTLeafIndex, userStateLeaves, transitionedFromAttestations);
     return userState;
 };
 exports.genUserStateFromParams = genUserStateFromParams;
@@ -563,7 +563,7 @@ const genUserStateFromContract = async (provider, address, userIdentity, _userSt
             maxReputationBudget: maxReputationBudget,
         };
         unirepState = new UnirepState_1.UnirepState(setting);
-        userState = new UserState_1.UserState(unirepState, userIdentity);
+        userState = new core_1.UserState(unirepState, userIdentity);
     }
     else {
         userState = genUserStateFromParams(userIdentity, _userState);

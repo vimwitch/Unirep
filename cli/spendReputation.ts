@@ -1,7 +1,7 @@
 import base64url from 'base64url'
 import { ethers } from 'ethers'
-import { ReputationProof, Unirep, UnirepFactory } from '@unirep/contracts'
-import { formatProofForSnarkjsVerification } from '@unirep/circuits'
+import { ReputationProof, Unirep, UnirepFactory } from '../contracts'
+import { formatProofForSnarkjsVerification } from '../circuits'
 
 import { DEFAULT_ETH_PROVIDER } from './defaults'
 import { verifyReputationProof } from './verifyReputationProof'

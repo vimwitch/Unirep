@@ -16,7 +16,7 @@ import {
     genUserStateFromContract,
     Reputation,
     UserState,
-} from '@unirep/core/src'
+} from '@unirep/core'
 
 import {
     genEpochKeyCircuitInput,

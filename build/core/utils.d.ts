@@ -1,9 +1,9 @@
 import { ethers } from 'ethers';
-import { Event } from '@unirep/contracts';
-import { SnarkBigInt, SparseMerkleTree } from '@unirep/crypto';
+import { Event } from '../contracts';
+import { formatProofForSnarkjsVerification } from '../circuits';
+import { SnarkBigInt, SparseMerkleTree } from '../crypto';
 import { IUnirepState, UnirepState } from './UnirepState';
-import { IUserState, UserState } from './UserState';
-import { formatProofForSnarkjsVerification } from '@unirep/circuits';
+import { IUserState, UserState } from '../core';
 declare const defaultUserStateLeaf: BigInt;
 declare const SMT_ZERO_LEAF: BigInt;
 declare const SMT_ONE_LEAF: BigInt;

@@ -20,7 +20,7 @@ import {
     MAX_REPUTATION_BUDGET,
 } from '@unirep/config'
 
-import { Attestation, genEpochKey, Reputation, UnirepState } from '../src'
+import { Attestation, genEpochKey, Reputation, UnirepState } from '@unirep/core'
 
 const toCompleteHexString = (str: string, len?: number): string => {
     str = str.startsWith('0x') ? str : '0x' + str

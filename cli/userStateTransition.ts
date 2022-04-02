@@ -1,13 +1,13 @@
 import base64url from 'base64url'
 import { ethers } from 'ethers'
-import { ZkIdentity, Strategy } from '@unirep/crypto'
+import { ZkIdentity, Strategy } from '../crypto'
 import {
     Circuit,
     formatProofForVerifierContract,
     verifyProof,
 } from '@unirep/circuits'
-import { Unirep, UnirepFactory, UserTransitionProof } from '@unirep/contracts'
-import { genUserStateFromContract } from '@unirep/core/src'
+import { Unirep, UnirepFactory, UserTransitionProof } from '../contracts'
+import { genUserStateFromContract } from '../core'
 
 import { DEFAULT_ETH_PROVIDER } from './defaults'
 import { identityPrefix } from './prefix'

@@ -8,7 +8,7 @@ import { ZkIdentity, hashOne, Strategy } from '@unirep/crypto'
 import { getUnirepContract } from '@unirep/contracts'
 
 import { DEFAULT_ETH_PROVIDER } from '../defaults'
-import { genUnirepStateFromContract, UnirepState } from '@unirep/core/src'
+import { genUnirepStateFromContract, UnirepState } from '@unirep/core'
 import { identityCommitmentPrefix, identityPrefix } from '../prefix'
 import { exec } from './utils'
 

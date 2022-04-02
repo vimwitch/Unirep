@@ -6,7 +6,7 @@ import {
     hashLeftRight,
     SparseMerkleTree,
     stringifyBigInts,
-} from '../../crypto'
+} from '../crypto'
 import {
     computeEmptyUserStateRoot,
     computeInitUserStateRoot,

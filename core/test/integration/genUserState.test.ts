@@ -23,7 +23,7 @@ import {
     genUserStateFromContract,
     genUserStateFromParams,
     UserState,
-} from '@unirep/core/src'
+} from '@unirep/core'
 
 import { genRandomAttestation, getTreeDepthsForTesting } from '../utils'
 import {

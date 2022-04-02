@@ -8,7 +8,7 @@ import {
     computeInitUserStateRoot,
     genUnirepStateFromContract,
     Reputation,
-} from '@unirep/core/src'
+} from '@unirep/core'
 
 import { genNewGST, getTreeDepthsForTesting } from '../utils'
 import {
