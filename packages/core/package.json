@@ -11,7 +11,7 @@
         "UnirepStateTests": "NODE_OPTIONS=--max-old-space-size=4096 npx hardhat test --no-compile $(find test/UnirepState -name '*.ts')",
         "UserStateTests": "NODE_OPTIONS=--max-old-space-size=4096 npx hardhat test --no-compile $(find test/UserState -name '*.ts')",
         "lint": "prettier --write .",
-        "prepublish": "echo 'nothing'"
+        "prepublish": "echo 'nothing'",
     },
     "repository": "git+https://github.com/appliedzkp/UniRep.git",
     "author": "",
