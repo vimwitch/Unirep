@@ -5,7 +5,7 @@ import {
     ATTESTTING_FEE,
     EPOCH_LENGTH,
     NUM_EPOCH_KEY_NONCE_PER_EPOCH,
-} from '@unirep/config'
+} from '../config'
 
 // apply the api key from https://www.alchemy.com/
 // const DEFAULT_ETH_PROVIDER = `https://eth-goerli.alchemyapi.io/v2/${ALCHEMY_API_KEY}`

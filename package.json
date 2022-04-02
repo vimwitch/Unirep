@@ -7,6 +7,7 @@
         "build": "./scripts/build.sh",
         "test": "./scripts/test.sh",
         "prepare": "husky install",
+        "lint": "prettier",
         "postinstall": "link-module-alias"
     },
     "_moduleAliases": {

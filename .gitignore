@@ -1,5 +1,8 @@
 node_modules
 zksnarkBuild
+typechain
+!build/zksnarkBuild
+!build/typechain
 
 **/build/test
 
