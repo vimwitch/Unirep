@@ -6,7 +6,17 @@
         "esModuleInterop": true,
         "resolveJsonModule": true,
         "noImplicitAny": false,
-        "declaration": true
+        "declaration": true,
+        "outDir": "./build"
     },
-    "exclude": ["**/node_modules"]
+    "include": [
+        "./crypto",
+        "./config",
+        "./circuits",
+        "./contracts",
+        "./core",
+        "./index.ts"
+    ],
+    "exclude": ["**/node_modules", "**/test"],
+    "files": ["./hardhat.config.ts"]
 }

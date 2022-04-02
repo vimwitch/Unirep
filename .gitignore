@@ -1,4 +1,5 @@
 node_modules
+zksnarkBuild
 
 **/build/test
 
@@ -8,3 +9,4 @@ node_modules
 
 .vscode
 .DS_Store
+cache
