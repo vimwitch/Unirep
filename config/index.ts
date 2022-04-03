@@ -23,3 +23,5 @@ export const MAX_REPUTATION_BUDGET = 10
 export const MAX_USERS = 2 ** GLOBAL_STATE_TREE_DEPTH - 1
 
 export const MAX_ATTESTERS = 2 ** USER_STATE_TREE_DEPTH - 1
+
+export const DEFAULT_START_BLOCK = 0

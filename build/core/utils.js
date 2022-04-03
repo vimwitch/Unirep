@@ -13,7 +13,6 @@ const config_1 = require("../config");
 const UnirepState_1 = require("./UnirepState");
 const core_1 = require("../core");
 const nullifierDomainSeparator_1 = require("../config/nullifierDomainSeparator");
-const defaults_1 = require("../cli/defaults");
 const defaultUserStateLeaf = (0, crypto_1.hash5)([
     BigInt(0),
     BigInt(0),
@@ -252,7 +251,7 @@ const genUnirepStateFromContract = async (provider, address, _unirepState) => {
         unirepState = genUnirepStateFromParams(_unirepState);
     }
     const latestBlock = _unirepState === null || _unirepState === void 0 ? void 0 : _unirepState.latestProcessedBlock;
-    const startBlock = latestBlock != undefined ? latestBlock + 1 : defaults_1.DEFAULT_START_BLOCK;
+    const startBlock = latestBlock != undefined ? latestBlock + 1 : config_1.DEFAULT_START_BLOCK;
     const UserSignedUpFilter = unirepContract.filters.UserSignedUp();
     const userSignedUpEvents = await unirepContract.queryFilter(UserSignedUpFilter, startBlock);
     const UserStateTransitionedFilter = unirepContract.filters.UserStateTransitioned();
@@ -570,7 +569,7 @@ const genUserStateFromContract = async (provider, address, userIdentity, _userSt
         unirepState = userState.getUnirepState();
     }
     const latestBlock = unirepState === null || unirepState === void 0 ? void 0 : unirepState.latestProcessedBlock;
-    const startBlock = latestBlock != undefined ? latestBlock + 1 : defaults_1.DEFAULT_START_BLOCK;
+    const startBlock = latestBlock != undefined ? latestBlock + 1 : config_1.DEFAULT_START_BLOCK;
     const UserSignedUpFilter = unirepContract.filters.UserSignedUp();
     const userSignedUpEvents = await unirepContract.queryFilter(UserSignedUpFilter, startBlock);
     const UserStateTransitionedFilter = unirepContract.filters.UserStateTransitioned();

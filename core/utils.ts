@@ -14,7 +14,7 @@ import {
     SparseMerkleTree,
 } from '../crypto'
 
-import { EPOCH_TREE_DEPTH } from '../config'
+import { EPOCH_TREE_DEPTH, DEFAULT_START_BLOCK } from '../config'
 import {
     Attestation,
     IEpochTreeLeaf,
@@ -33,7 +33,6 @@ import {
     EPOCH_KEY_NULLIFIER_DOMAIN,
     REPUTATION_NULLIFIER_DOMAIN,
 } from '../config/nullifierDomainSeparator'
-import { DEFAULT_START_BLOCK } from '../cli/defaults'
 
 const defaultUserStateLeaf = hash5([
     BigInt(0),

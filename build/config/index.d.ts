@@ -12,3 +12,4 @@ export declare const EPOCH_TREE_DEPTH = 32;
 export declare const MAX_REPUTATION_BUDGET = 10;
 export declare const MAX_USERS: number;
 export declare const MAX_ATTESTERS: number;
+export declare const DEFAULT_START_BLOCK = 0;

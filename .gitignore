@@ -6,8 +6,6 @@ typechain
 
 **/build/test
 
-**/build/cli
-
 **.eslintcache
 
 .vscode
