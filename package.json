@@ -6,7 +6,6 @@
     "scripts": {
         "build": "./scripts/build.sh && link-module-alias",
         "test": "./scripts/test.sh",
-        "prepare": "husky install",
         "lint": "prettier"
     },
     "_moduleAliases": {
@@ -38,7 +37,7 @@
         "ethereum-waffle": "^3.4.0",
         "hardhat": "^2.9.2",
         "husky": "^7.0.4",
-        "keyv": "^4.0.3",
+        "keyv": "4.0.3",
         "lint-staged": "^12.3.7",
         "maci-config": "^0.9.1",
         "prettier": "^2.6.0",
