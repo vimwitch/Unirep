@@ -11,7 +11,6 @@ import {
     MAX_REPUTATION_BUDGET,
     NUM_EPOCH_KEY_NONCE_PER_EPOCH,
     EPOCH_LENGTH,
-    ATTESTTING_FEE,
 } from '@unirep/config'
 
 import { genEpochKey, getTreeDepthsForTesting, Attestation } from './utils'
@@ -40,7 +39,7 @@ describe('Attesting', () => {
     )
     let epochKeyProofIndex
     const senderPfIdx = 0
-    const attestingFee = ethers.utils.parseEther('0.1')
+    const attestingFee = ethers.utils.parseEther('1')
 
     before(async () => {
         accounts = await hardhatEthers.getSigners()
@@ -52,7 +51,7 @@ describe('Attesting', () => {
             numEpochKeyNoncePerEpoch: NUM_EPOCH_KEY_NONCE_PER_EPOCH,
             maxReputationBudget: MAX_REPUTATION_BUDGET,
             epochLength: EPOCH_LENGTH,
-            attestingFee: ATTESTTING_FEE,
+            attestingFee,
         }
         unirepContract = await deployUnirep(
             <ethers.Wallet>accounts[0],
@@ -353,15 +352,6 @@ describe('Attesting', () => {
                 epochKeyProofIndex,
                 senderPfIdx,
                 { value: attestingFee.sub(1) }
-            )
-        ).to.be.revertedWith('Unirep: no attesting fee or incorrect amount')
-        await expect(
-            unirepContractCalledByAttester.submitAttestation(
-                attestation,
-                epochKey,
-                epochKeyProofIndex,
-                senderPfIdx,
-                { value: attestingFee.add(1) }
             )
         ).to.be.revertedWith('Unirep: no attesting fee or incorrect amount')
     })
