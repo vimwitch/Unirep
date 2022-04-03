@@ -1,4 +1,4 @@
-import { genRandomSalt, hashLeftRight, SnarkBigInt } from '@unirep/crypto'
+import { genRandomSalt, hashLeftRight, SnarkBigInt } from '~unirep/crypto'
 import * as path from 'path'
 
 import { executeCircuit } from '~circuits/utils'

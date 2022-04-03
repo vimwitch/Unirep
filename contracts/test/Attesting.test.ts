@@ -2,19 +2,19 @@
 import { ethers as hardhatEthers } from 'hardhat'
 import { BigNumberish, ethers } from 'ethers'
 import { expect } from 'chai'
-import { genRandomSalt, SNARK_FIELD_SIZE, ZkIdentity } from '@unirep/crypto'
-import { formatProofForSnarkjsVerification } from '@unirep/circuits'
-import { deployUnirep, EpochKeyProof } from '@unirep/contracts'
+import { genRandomSalt, SNARK_FIELD_SIZE, ZkIdentity } from '~unirep/crypto'
+import { formatProofForSnarkjsVerification } from '~unirep/circuits'
+import { deployUnirep, EpochKeyProof } from '~unirep/contracts'
 import {
     MAX_USERS,
     MAX_ATTESTERS,
     MAX_REPUTATION_BUDGET,
     NUM_EPOCH_KEY_NONCE_PER_EPOCH,
     EPOCH_LENGTH,
-} from '@unirep/config'
+} from '~unirep/config'
 
 import { genEpochKey, getTreeDepthsForTesting, Attestation } from './utils'
-import { Unirep } from '@unirep/typechain'
+import { Unirep } from '~unirep/typechain'
 
 describe('Attesting', () => {
     let unirepContract: Unirep

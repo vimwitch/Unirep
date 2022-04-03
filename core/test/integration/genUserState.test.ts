@@ -2,12 +2,12 @@
 import { ethers as hardhatEthers } from 'hardhat'
 import { ethers } from 'ethers'
 import { expect } from 'chai'
-import { genRandomSalt, ZkIdentity } from '@unirep/crypto'
+import { genRandomSalt, ZkIdentity } from '~unirep/crypto'
 import {
     Circuit,
     formatProofForVerifierContract,
     verifyProof,
-} from '@unirep/circuits'
+} from '~unirep/circuits'
 import {
     computeProcessAttestationsProofHash,
     computeStartTransitionProofHash,
@@ -17,13 +17,13 @@ import {
     SignUpProof,
     Unirep,
     UserTransitionProof,
-} from '@unirep/contracts'
+} from '~unirep/contracts'
 import {
     Attestation,
     genUserStateFromContract,
     genUserStateFromParams,
     UserState,
-} from '@unirep/core'
+} from '~unirep/core'
 
 import { genRandomAttestation, getTreeDepthsForTesting } from '../utils'
 import {
@@ -33,7 +33,7 @@ import {
     MAX_REPUTATION_BUDGET,
     MAX_USERS,
     NUM_EPOCH_KEY_NONCE_PER_EPOCH,
-} from '@unirep/config'
+} from '~unirep/config'
 
 describe('Generate user state', function () {
     this.timeout(0)

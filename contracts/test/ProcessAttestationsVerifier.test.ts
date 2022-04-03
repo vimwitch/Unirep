@@ -2,13 +2,13 @@
 import { ethers as hardhatEthers } from 'hardhat'
 import { ethers } from 'ethers'
 import { expect } from 'chai'
-import { ZkIdentity } from '@unirep/crypto'
-import { Circuit } from '@unirep/circuits'
+import { ZkIdentity } from '~unirep/crypto'
+import { Circuit } from '~unirep/circuits'
 import {
     computeProcessAttestationsProofHash,
     deployUnirep,
-} from '@unirep/contracts'
-import { NUM_ATTESTATIONS_PER_PROOF } from '@unirep/config'
+} from '~unirep/contracts'
+import { NUM_ATTESTATIONS_PER_PROOF } from '~unirep/config'
 
 import {
     genInputForContract,

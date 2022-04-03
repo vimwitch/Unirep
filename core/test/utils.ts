@@ -11,16 +11,16 @@ import {
     genRandomSalt,
     stringifyBigInts,
     ZkIdentity,
-} from '@unirep/crypto'
-import { Circuit, verifyProof } from '@unirep/circuits'
+} from '~unirep/crypto'
+import { Circuit, verifyProof } from '~unirep/circuits'
 import {
     EPOCH_TREE_DEPTH,
     GLOBAL_STATE_TREE_DEPTH,
     USER_STATE_TREE_DEPTH,
     MAX_REPUTATION_BUDGET,
-} from '@unirep/config'
+} from '~unirep/config'
 
-import { Attestation, genEpochKey, Reputation, UnirepState } from '@unirep/core'
+import { Attestation, genEpochKey, Reputation, UnirepState } from '~unirep/core'
 
 const toCompleteHexString = (str: string, len?: number): string => {
     str = str.startsWith('0x') ? str : '0x' + str

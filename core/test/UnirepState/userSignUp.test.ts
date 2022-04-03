@@ -2,13 +2,13 @@
 import { ethers as hardhatEthers } from 'hardhat'
 import { ethers } from 'ethers'
 import { expect } from 'chai'
-import { ZkIdentity, hashLeftRight } from '@unirep/crypto'
-import { deployUnirep } from '@unirep/contracts'
+import { ZkIdentity, hashLeftRight } from '~unirep/crypto'
+import { deployUnirep } from '~unirep/contracts'
 import {
     computeInitUserStateRoot,
     genUnirepStateFromContract,
     Reputation,
-} from '@unirep/core'
+} from '~unirep/core'
 
 import { genNewGST, getTreeDepthsForTesting } from '../utils'
 import {
@@ -18,7 +18,7 @@ import {
     MAX_ATTESTERS,
     MAX_REPUTATION_BUDGET,
     NUM_EPOCH_KEY_NONCE_PER_EPOCH,
-} from '@unirep/config'
+} from '~unirep/config'
 
 describe('User sign up events in Unirep State', function () {
     this.timeout(0)

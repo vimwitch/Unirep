@@ -5,7 +5,7 @@ import assert from 'assert'
 import { ethers } from 'ethers'
 const circom = require('circom')
 import Keyv from 'keyv'
-import * as crypto from '@unirep/crypto'
+import * as crypto from '~unirep/crypto'
 
 import {
     EPOCH_TREE_DEPTH,
@@ -14,7 +14,7 @@ import {
     MAX_REPUTATION_BUDGET,
     NUM_ATTESTATIONS_PER_PROOF,
     NUM_EPOCH_KEY_NONCE_PER_EPOCH,
-} from '@unirep/config'
+} from '~unirep/config'
 
 import { Circuit } from '../config'
 

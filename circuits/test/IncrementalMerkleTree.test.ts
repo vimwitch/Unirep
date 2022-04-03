@@ -5,7 +5,7 @@ import {
     IncrementalMerkleTree,
     hashOne,
     SnarkBigInt,
-} from '@unirep/crypto'
+} from '~unirep/crypto'
 import { executeCircuit, getSignalByName } from '~circuits/utils'
 import { compileAndLoadCircuit } from './utils'
 

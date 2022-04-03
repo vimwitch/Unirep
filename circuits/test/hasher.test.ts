@@ -5,7 +5,7 @@ import {
     genRandomSalt,
     hashLeftRight,
     hash5,
-} from '@unirep/crypto'
+} from '~unirep/crypto'
 import { executeCircuit, getSignalByName } from '~circuits/utils'
 import { compileAndLoadCircuit } from './utils'
 

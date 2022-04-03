@@ -4,14 +4,13 @@
     "description": "UniRep is a private and nonrepudiable repuation system based on ZKP",
     "main": "build/index.js",
     "scripts": {
-        "build": "./scripts/build.sh",
+        "build": "./scripts/build.sh && link-module-alias",
         "test": "./scripts/test.sh",
         "prepare": "husky install",
-        "lint": "prettier",
-        "postinstall": "link-module-alias"
+        "lint": "prettier"
     },
     "_moduleAliases": {
-        "@unirep": ".",
+        "~unirep": ".",
         "~circuits": "./circuits"
     },
     "devDependencies": {

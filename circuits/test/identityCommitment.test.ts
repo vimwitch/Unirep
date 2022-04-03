@@ -1,6 +1,6 @@
 import * as path from 'path'
 import { expect } from 'chai'
-import { ZkIdentity } from '@unirep/crypto'
+import { ZkIdentity } from '~unirep/crypto'
 import { executeCircuit, getSignalByName } from '~circuits/utils'
 import { compileAndLoadCircuit } from './utils'
 

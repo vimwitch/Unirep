@@ -1,6 +1,6 @@
 import { expect } from 'chai'
-import { Circuit, verifyProof } from '@unirep/circuits'
-import { ZkIdentity, genRandomSalt, hashLeftRight } from '@unirep/crypto'
+import { Circuit, verifyProof } from '~unirep/circuits'
+import { ZkIdentity, genRandomSalt, hashLeftRight } from '~unirep/crypto'
 import {
     computeInitUserStateRoot,
     genEpochKey,
@@ -8,7 +8,7 @@ import {
     Reputation,
     UnirepState,
     UserState,
-} from '@unirep/core'
+} from '~unirep/core'
 import { genNewGST, genRandomAttestation } from '../utils'
 import {
     ATTESTTING_FEE,
@@ -18,7 +18,7 @@ import {
     MAX_REPUTATION_BUDGET,
     NUM_EPOCH_KEY_NONCE_PER_EPOCH,
     USER_STATE_TREE_DEPTH,
-} from '@unirep/config'
+} from '~unirep/config'
 
 describe('User State', async function () {
     this.timeout(0)

@@ -2,19 +2,19 @@
 import { ethers as hardhatEthers } from 'hardhat'
 import { BigNumber, ethers } from 'ethers'
 import { expect } from 'chai'
-import { ZkIdentity, genRandomSalt, hashLeftRight } from '@unirep/crypto'
+import { ZkIdentity, genRandomSalt, hashLeftRight } from '~unirep/crypto'
 import {
     Circuit,
     formatProofForVerifierContract,
     genProofAndPublicSignals,
-} from '@unirep/circuits'
+} from '~unirep/circuits'
 import {
     deployUnirep,
     EpochKeyProof,
     UserTransitionProof,
     computeStartTransitionProofHash,
     computeProcessAttestationsProofHash,
-} from '@unirep/contracts'
+} from '~unirep/contracts'
 import {
     Attestation,
     computeInitUserStateRoot,
@@ -23,7 +23,7 @@ import {
     Reputation,
     UnirepState,
     UserState,
-} from '@unirep/core'
+} from '~unirep/core'
 
 import {
     genEpochKeyCircuitInput,
@@ -40,7 +40,7 @@ import {
     MAX_ATTESTERS,
     MAX_REPUTATION_BUDGET,
     NUM_EPOCH_KEY_NONCE_PER_EPOCH,
-} from '@unirep/config'
+} from '~unirep/config'
 
 describe('User state transition events in Unirep State', async function () {
     this.timeout(0)

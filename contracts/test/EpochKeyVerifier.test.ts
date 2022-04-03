@@ -2,20 +2,20 @@
 import { ethers as hardhatEthers } from 'hardhat'
 import { ethers } from 'ethers'
 import { expect } from 'chai'
-import { Circuit } from '@unirep/circuits'
+import { Circuit } from '~unirep/circuits'
 import {
     genRandomSalt,
     hashLeftRight,
     ZkIdentity,
     IncrementalMerkleTree,
-} from '@unirep/crypto'
+} from '~unirep/crypto'
 
 import {
     NUM_EPOCH_KEY_NONCE_PER_EPOCH,
     EPOCH_TREE_DEPTH,
     GLOBAL_STATE_TREE_DEPTH,
-} from '@unirep/config'
-import { EpochKeyProof, deployUnirep } from '@unirep/contracts'
+} from '~unirep/config'
+import { EpochKeyProof, deployUnirep } from '~unirep/contracts'
 
 import {
     genEpochKeyCircuitInput,

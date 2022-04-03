@@ -7,16 +7,16 @@ import {
     ZkIdentity,
     hashLeftRight,
     IncrementalMerkleTree,
-} from '@unirep/crypto'
-import { Circuit, genProofAndPublicSignals } from '@unirep/circuits'
-import { deployUnirep, EpochKeyProof } from '@unirep/contracts'
+} from '~unirep/crypto'
+import { Circuit, genProofAndPublicSignals } from '~unirep/circuits'
+import { deployUnirep, EpochKeyProof } from '~unirep/contracts'
 import {
     computeInitUserStateRoot,
     genUnirepStateFromContract,
     genUserStateFromContract,
     Reputation,
     UserState,
-} from '@unirep/core'
+} from '~unirep/core'
 
 import {
     genEpochKeyCircuitInput,
@@ -31,7 +31,7 @@ import {
     MAX_ATTESTERS,
     MAX_REPUTATION_BUDGET,
     NUM_EPOCH_KEY_NONCE_PER_EPOCH,
-} from '@unirep/config'
+} from '~unirep/config'
 
 describe('Epoch key proof events in Unirep User State', function () {
     this.timeout(0)

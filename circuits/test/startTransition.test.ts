@@ -6,9 +6,9 @@ import {
     ZkIdentity,
     SparseMerkleTree,
     IncrementalMerkleTree,
-} from '@unirep/crypto'
+} from '~unirep/crypto'
 import { executeCircuit, getSignalByName, Circuit } from '~circuits/utils'
-import { GLOBAL_STATE_TREE_DEPTH } from '@unirep/config'
+import { GLOBAL_STATE_TREE_DEPTH } from '~unirep/config'
 
 import {
     compileAndLoadCircuit,

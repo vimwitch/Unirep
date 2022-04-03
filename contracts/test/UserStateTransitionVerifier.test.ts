@@ -2,11 +2,11 @@
 import { ethers as hardhatEthers } from 'hardhat'
 import { expect } from 'chai'
 import { BigNumberish, ethers } from 'ethers'
-import { ZkIdentity, genRandomSalt } from '@unirep/crypto'
-import { Circuit } from '@unirep/circuits'
-import { EPOCH_LENGTH } from '@unirep/config'
-import { deployUnirep, UserTransitionProof } from '@unirep/contracts'
-import { Unirep } from '@unirep/typechain'
+import { ZkIdentity, genRandomSalt } from '~unirep/crypto'
+import { Circuit } from '~unirep/circuits'
+import { EPOCH_LENGTH } from '~unirep/config'
+import { deployUnirep, UserTransitionProof } from '~unirep/contracts'
+import { Unirep } from '~unirep/typechain'
 
 import {
     genUserStateTransitionCircuitInput,

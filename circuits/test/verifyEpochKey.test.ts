@@ -5,7 +5,7 @@ import {
     hashLeftRight,
     IncrementalMerkleTree,
     ZkIdentity,
-} from '@unirep/crypto'
+} from '~unirep/crypto'
 import {
     Circuit,
     executeCircuit,
@@ -19,7 +19,7 @@ import {
     EPOCH_TREE_DEPTH,
     GLOBAL_STATE_TREE_DEPTH,
     NUM_EPOCH_KEY_NONCE_PER_EPOCH,
-} from '@unirep/config'
+} from '~unirep/config'
 
 import { verifyEpochKeyCircuitPath } from '../config'
 import {

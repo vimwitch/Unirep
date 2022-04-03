@@ -6,7 +6,7 @@ import {
     ZkIdentity,
     SparseMerkleTree,
     SnarkBigInt,
-} from '@unirep/crypto'
+} from '~unirep/crypto'
 import { executeCircuit, getSignalByName, Circuit } from '~circuits/utils'
 import {
     genNewEpochTree,
@@ -18,7 +18,7 @@ import {
 
 import { userStateTransitionCircuitPath } from '../config'
 
-import { NUM_EPOCH_KEY_NONCE_PER_EPOCH } from '@unirep/config'
+import { NUM_EPOCH_KEY_NONCE_PER_EPOCH } from '~unirep/config'
 const epkExistsCircuitPath = path.join(
     __dirname,
     './circuits/epochKeyExists_test.circom'

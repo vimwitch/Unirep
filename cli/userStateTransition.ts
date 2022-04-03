@@ -5,7 +5,7 @@ import {
     Circuit,
     formatProofForVerifierContract,
     verifyProof,
-} from '@unirep/circuits'
+} from '../circuits'
 import { Unirep, UnirepFactory, UserTransitionProof } from '../contracts'
 import { genUserStateFromContract } from '../core'
 

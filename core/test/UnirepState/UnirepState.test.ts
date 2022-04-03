@@ -1,6 +1,6 @@
 import { expect } from 'chai'
-import { genRandomSalt, hashLeftRight } from '@unirep/crypto'
-import { computeInitUserStateRoot, ISettings, UnirepState } from '@unirep/core'
+import { genRandomSalt, hashLeftRight } from '~unirep/crypto'
+import { computeInitUserStateRoot, ISettings, UnirepState } from '~unirep/core'
 import { genNewGST, genRandomAttestation } from '../utils'
 import {
     ATTESTTING_FEE,
@@ -10,7 +10,7 @@ import {
     MAX_REPUTATION_BUDGET,
     NUM_EPOCH_KEY_NONCE_PER_EPOCH,
     USER_STATE_TREE_DEPTH,
-} from '@unirep/config'
+} from '~unirep/config'
 
 describe('Unirep State', function () {
     let unirepState: UnirepState
