@@ -34,7 +34,7 @@ describe('User sign up events in Unirep State', function () {
 
     let accounts: ethers.Signer[]
     const attester = new Object()
-    const maxUsers = 2 ** GLOBAL_STATE_TREE_DEPTH - 1
+    const maxUsers = 10
     const userNum = Math.ceil(Math.random() * maxUsers)
 
     before(async () => {

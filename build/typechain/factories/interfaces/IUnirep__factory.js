@@ -78,6 +78,12 @@ const _abi = [
                 name: "fromProofIndex",
                 type: "uint256",
             },
+            {
+                indexed: false,
+                internalType: "uint256",
+                name: "attestIndex",
+                type: "uint256",
+            },
         ],
         name: "AttestationSubmitted",
         type: "event",

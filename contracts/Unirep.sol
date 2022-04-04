@@ -49,6 +49,14 @@ contract Unirep is IUnirep, zkSNARKHelper , Hasher, VerifySignature {
     // 0 is reserved for index not found in getProofIndex
     uint256 internal proofIndex = 1;
 
+    // Before Unirep integrates with InterRep
+    // We use an admin to controll user sign up
+    address internal admin;
+
+    // The index of attestations
+    // To indicate the sequence of attestations
+    uint256 internal attestIndex = 1;
+
     // Mapping of proof nullifiers and the proof index
     mapping(bytes32 => uint256) public getProofIndex;
 
@@ -101,6 +109,7 @@ contract Unirep is IUnirep, zkSNARKHelper , Hasher, VerifySignature {
         maxReputationBudget = _maxReputationBudget;
         epochLength = _epochLength;
         latestEpochTransitionTime = block.timestamp;
+        admin = msg.sender;
 
         // Check and store the maximum number of signups
         // It is the user's responsibility to ensure that the state tree depth
@@ -159,6 +168,11 @@ contract Unirep is IUnirep, zkSNARKHelper , Hasher, VerifySignature {
      * @param identityCommitment Commitment of the user's identity which is a semaphore identity.
      */
     function userSignUp(uint256 _identityCommitment) external {
+        require(
+            msg.sender == admin ||
+            attesters[msg.sender] > 0,
+            "Unirep: sign up should through an admin or an attester"
+        );
         require(
             hasUserSignedUp[_identityCommitment] == false,
             "Unirep: the user has already signed up"
@@ -479,8 +493,10 @@ contract Unirep is IUnirep, zkSNARKHelper , Hasher, VerifySignature {
             _event,
             attestation,
             toProofIndex,
-            fromProofIndex
+            fromProofIndex,
+            attestIndex
         );
+        attestIndex++;
     }
 
     function beginEpochTransition() external {

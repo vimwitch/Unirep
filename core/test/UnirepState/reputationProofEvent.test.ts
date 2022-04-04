@@ -55,7 +55,7 @@ describe('Reputation proof events in Unirep State', function () {
     let accounts: ethers.Signer[]
     const attester = new Object()
     let attesterId
-    const maxUsers = 2 ** GLOBAL_STATE_TREE_DEPTH - 1
+    const maxUsers = 10
     const userNum = 5
     const airdropPosRep = 10
     const spendReputation = 4

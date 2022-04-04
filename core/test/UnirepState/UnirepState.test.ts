@@ -24,7 +24,7 @@ describe('Unirep State', function () {
         maxReputationBudget: MAX_REPUTATION_BUDGET,
     }
     const epochKeys: string[] = []
-    const maxUsers = 2 ** setting.globalStateTreeDepth
+    const maxUsers = 10
     const userNum = Math.ceil(Math.random() * maxUsers)
     let epoch = 1
 

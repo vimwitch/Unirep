@@ -45,7 +45,8 @@ interface IUnirep is UnirepTypes {
         AttestationEvent attestationEvent,
         Attestation attestation,
         uint256 toProofIndex,
-        uint256 fromProofIndex
+        uint256 fromProofIndex,
+        uint256 attestIndex
     );
 
     event EpochEnded(uint256 indexed epoch);
