@@ -3,8 +3,10 @@ zksnarkBuild
 typechain
 !build/zksnarkBuild
 !build/typechain
+build-info/
 
 **/build/test
+**/**.dbg.json
 
 **.eslintcache
 

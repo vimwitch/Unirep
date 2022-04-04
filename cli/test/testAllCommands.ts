@@ -46,11 +46,8 @@ describe('test all CLI subcommands', function () {
     let repPublicSignals, signUpPublicSignals
 
     before(async () => {
-        deployerPrivKey = ethers.utils.solidityKeccak256(['uint'], [0])
         deployerAddr = ethers.utils.computeAddress(deployerPrivKey)
-        userPrivKey = ethers.utils.solidityKeccak256(['uint'], [1])
         userAddr = ethers.utils.computeAddress(userPrivKey)
-        attesterPrivKey = ethers.utils.solidityKeccak256(['uint'], [2])
         attesterAddr = ethers.utils.computeAddress(attesterPrivKey)
 
         // Transfer ether so they can execute transactions
