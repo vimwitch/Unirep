@@ -25,7 +25,7 @@ describe('Epoch key proof events in Unirep State', function () {
     let accounts: ethers.Signer[]
     const attester = new Object()
     let attesterId
-    const maxUsers = (2 ** circuitGlobalStateTreeDepth) - 1
+    const maxUsers = 10
     const userNum = Math.ceil(Math.random() * maxUsers)
     const fromProofIndex = 0
 
