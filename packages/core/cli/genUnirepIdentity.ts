@@ -7,6 +7,7 @@ const configureSubparser = (subparsers: any) => {
     subparsers.add_parser('genUnirepIdentity', { add_help: true })
 }
 
+
 const genUnirepIdentity = async (args: any) => {
     // eslint-disable-line @typescript-eslint/no-unused-vars
     const id = new ZkIdentity()
@@ -14,12 +15,13 @@ const genUnirepIdentity = async (args: any) => {
 
     const serializedIdentity = id.serializeIdentity()
     const encodedIdentity = base64url.encode(serializedIdentity)
-    console.log(identityPrefix + encodedIdentity)
 
     const serializedIdentityCommitment = commitment.toString()
     const encodedIdentityCommitment = base64url.encode(
         serializedIdentityCommitment
     )
+
+    console.log(identityPrefix + encodedIdentity)
     console.log(identityCommitmentPrefix + encodedIdentityCommitment)
 }
 

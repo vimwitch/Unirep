@@ -47,6 +47,12 @@ const configureSubparser = (subparsers: any) => {
         type: 'str',
         help: 'The Unirep contract address',
     })
+
+    parser.add_argument("-w", "--write", {
+        required: false, 
+        type: 'str', 
+        help: "The path to file save proof"
+    })
 }
 
 const genEpochKeyAndProof = async (args: any) => {
@@ -104,8 +110,13 @@ const genEpochKeyAndProof = async (args: any) => {
     console.log(
         `Epoch key of epoch ${currentEpoch} and nonce ${epkNonce}: ${epk}`
     )
-    console.log(epkProofPrefix + encodedProof)
-    console.log(epkPublicSignalsPrefix + encodedPublicSignals)
+
+    const filename = args.write ?? "./epoch_key_and_proof.json";
+
+    const proofEncode = epkProofPrefix + encodedProof;
+    const epkPublicSignalsEncode = epkPublicSignalsPrefix + encodedPublicSignals;
+        console.log(proofEncode)
+        console.log(epkPublicSignalsEncode);
 }
 
 export { genEpochKeyAndProof, configureSubparser }
