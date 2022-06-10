@@ -3,7 +3,7 @@ import { ethers as hardhatEthers } from 'hardhat'
 import { ethers } from 'ethers'
 import { expect } from 'chai'
 import {
-    genRandomSalt,
+    genRandomNumber,
     ZkIdentity,
     hashLeftRight,
     IncrementalMerkleTree,
@@ -23,8 +23,8 @@ describe('Epoch key proof events in Unirep User State', function () {
     this.timeout(0)
 
     let userIds: ZkIdentity[] = []
-    let userCommitments: BigInt[] = []
-    let userStateTreeRoots: BigInt[] = []
+    let userCommitments: bigint[] = []
+    let userStateTreeRoots: bigint[] = []
     let signUpAirdrops: Reputation[] = []
 
     let unirepContract: Unirep
@@ -226,7 +226,7 @@ describe('Epoch key proof events in Unirep User State', function () {
             const epkNonce = 1
             const { proof, publicSignals } =
                 await userState.genVerifyEpochKeyProof(epkNonce)
-            publicSignals[0] = genRandomSalt().toString()
+            publicSignals[0] = genRandomNumber().toString()
             const epkProofInput = new EpochKeyProof(publicSignals, proof)
             const isValid = await epkProofInput.verify()
             expect(isValid).to.be.false
@@ -263,15 +263,10 @@ describe('Epoch key proof events in Unirep User State', function () {
         })
 
         it('submit valid epoch key proof with wrong GST root event', async () => {
-            const ZERO_VALUE = 0
-            const GSTree = new IncrementalMerkleTree(
-                treeDepths.globalStateTreeDepth,
-                ZERO_VALUE,
-                2
-            )
+            const GSTree = new IncrementalMerkleTree(treeDepths.globalStateTreeDepth)
             const id = new ZkIdentity()
             const commitment = id.genIdentityCommitment()
-            const stateRoot = genRandomSalt()
+            const stateRoot = genRandomNumber()
             const leafIndex = 0
 
             const hashedStateLeaf = hashLeftRight(commitment, stateRoot)

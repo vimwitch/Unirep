@@ -1,6 +1,6 @@
 import * as path from 'path'
 import { expect } from 'chai'
-import { genRandomSalt, ZkIdentity, hashOne } from '@unirep/crypto'
+import { genRandomNumber, ZkIdentity, hashOne } from '@unirep/crypto'
 import { Circuit, executeCircuit } from '../circuits/utils'
 import {
     Reputation,
@@ -9,9 +9,12 @@ import {
     throwError,
     genProofAndVerify,
 } from './utils'
-import { proveReputationCircuitPath } from '../config'
+import {
+    proveReputationCircuitPath,
+    USER_STATE_TREE_DEPTH,
+    MAX_REPUTATION_BUDGET,
+} from '../config'
 
-import { USER_STATE_TREE_DEPTH, MAX_REPUTATION_BUDGET } from '../config'
 const circuitPath = path.join(__dirname, proveReputationCircuitPath)
 
 describe('Prove reputation from attester circuit', function () {
@@ -49,7 +52,7 @@ describe('Prove reputation from attester circuit', function () {
                 attesterId = Math.floor(
                     Math.random() * 2 ** USER_STATE_TREE_DEPTH
                 )
-            const graffitiPreImage = genRandomSalt()
+            const graffitiPreImage = genRandomNumber()
             reputationRecords[attesterId] = new Reputation(
                 BigInt(Math.floor(Math.random() * 100) + MIN_POS_REP),
                 BigInt(Math.floor(Math.random() * MAX_NEG_REP)),
@@ -165,7 +168,7 @@ describe('Prove reputation from attester circuit', function () {
         const attesterId =
             attesterIds[Math.floor(Math.random() * NUM_ATTESTERS)]
         const notProveGraffiti = 0
-        const wrongGraffitiPreImage = genRandomSalt()
+        const wrongGraffitiPreImage = genRandomNumber()
         const circuitInputs = await genReputationCircuitInput(
             user,
             epoch,
@@ -221,7 +224,7 @@ describe('Prove reputation from attester circuit', function () {
         const attesterId = Number(
             attesterIds[Math.floor(Math.random() * NUM_ATTESTERS)]
         )
-        const wrongUserStateRoot = genRandomSalt().toString()
+        const wrongUserStateRoot = genRandomNumber().toString()
         const circuitInputs = await genReputationCircuitInput(
             user,
             epoch,
@@ -255,7 +258,7 @@ describe('Prove reputation from attester circuit', function () {
             )
         const insufficientPosRep = 5
         const insufficientNegRep = 10
-        const insufficientGraffitiPreImage = genRandomSalt()
+        const insufficientGraffitiPreImage = genRandomNumber()
         reputationRecords[insufficientAttesterId] = new Reputation(
             BigInt(insufficientPosRep),
             BigInt(insufficientNegRep),
@@ -456,7 +459,7 @@ describe('Prove reputation from attester circuit', function () {
         const attesterId = Number(
             attesterIds[Math.floor(Math.random() * NUM_ATTESTERS)]
         )
-        const wrongGraffitiPreImage = genRandomSalt()
+        const wrongGraffitiPreImage = genRandomNumber()
         const circuitInputs = await genReputationCircuitInput(
             user,
             epoch,

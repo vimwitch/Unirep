@@ -4,7 +4,7 @@ import { ethers } from 'ethers'
 import { expect } from 'chai'
 import { Circuit } from '@unirep/circuits'
 import {
-    genRandomSalt,
+    genRandomNumber,
     hashLeftRight,
     ZkIdentity,
     IncrementalMerkleTree,
@@ -22,8 +22,6 @@ import { EpochKeyProof, deployUnirep, Unirep } from '../src'
 describe('Verify Epoch Key verifier', function () {
     this.timeout(30000)
 
-    let ZERO_VALUE = 0
-
     const maxEPK = BigInt(2 ** EPOCH_TREE_DEPTH)
 
     let unirepContract: Unirep
@@ -38,10 +36,10 @@ describe('Verify Epoch Key verifier', function () {
         accounts = await hardhatEthers.getSigners()
 
         unirepContract = await deployUnirep(<ethers.Wallet>accounts[0])
-        tree = new IncrementalMerkleTree(GLOBAL_STATE_TREE_DEPTH, ZERO_VALUE, 2)
+        tree = new IncrementalMerkleTree(GLOBAL_STATE_TREE_DEPTH)
         id = new ZkIdentity()
         commitment = id.genIdentityCommitment()
-        stateRoot = genRandomSalt()
+        stateRoot = genRandomNumber()
 
         const hashedStateLeaf = hashLeftRight(
             commitment.toString(),
@@ -128,7 +126,7 @@ describe('Verify Epoch Key verifier', function () {
     })
 
     it('Mismatched GST tree root should not pass check', async () => {
-        const otherTreeRoot = genRandomSalt()
+        const otherTreeRoot = genRandomNumber()
         const invalidCircuitInputs = genEpochKeyCircuitInput(
             id,
             tree,

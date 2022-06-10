@@ -3,7 +3,7 @@ import { ethers as hardhatEthers } from 'hardhat'
 import { ethers } from 'ethers'
 import { expect } from 'chai'
 import {
-    genRandomSalt,
+    genRandomNumber,
     ZkIdentity,
     hashLeftRight,
     IncrementalMerkleTree,
@@ -35,8 +35,8 @@ describe('Reputation proof events in Unirep State', function () {
     this.timeout(0)
 
     let userIds: ZkIdentity[] = []
-    let userCommitments: BigInt[] = []
-    let userStateTreeRoots: BigInt[] = []
+    let userCommitments: bigint[] = []
+    let userStateTreeRoots: bigint[] = []
     let signUpAirdrops: Reputation[] = []
 
     let unirepContract: Unirep
@@ -435,7 +435,7 @@ describe('Reputation proof events in Unirep State', function () {
                 Number(attesterId),
                 spendReputation
             )
-            circuitInputs.GST_root = genRandomSalt().toString()
+            circuitInputs.GST_root = genRandomNumber().toString()
             const { proof, publicSignals } = await genProofAndPublicSignals(
                 Circuit.proveReputation,
                 circuitInputs
@@ -549,10 +549,9 @@ describe('Reputation proof events in Unirep State', function () {
 
         it('submit valid reputation proof with wrong GST root event', async () => {
             const epkNonce = 1
-            const ZERO_VALUE = 0
             const reputationRecords = {}
             reputationRecords[attesterId.toString()] = signUpAirdrops[userIdx]
-            const userStateTree = await genNewUserStateTree()
+            const userStateTree = genNewUserStateTree()
             for (const attester of Object.keys(reputationRecords)) {
                 await userStateTree.update(
                     BigInt(attester),
@@ -560,13 +559,11 @@ describe('Reputation proof events in Unirep State', function () {
                 )
             }
             const GSTree = new IncrementalMerkleTree(
-                treeDepths.globalStateTreeDepth,
-                ZERO_VALUE,
-                2
+                treeDepths.globalStateTreeDepth
             )
             const id = new ZkIdentity()
             const commitment = id.genIdentityCommitment()
-            const stateRoot = userStateTree.getRootHash()
+            const stateRoot = userStateTree.root
             const leafIndex = 0
             const hashedStateLeaf = hashLeftRight(commitment, stateRoot)
             GSTree.insert(BigInt(hashedStateLeaf.toString()))

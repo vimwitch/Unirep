@@ -6,7 +6,7 @@ import { BigNumber, BigNumberish, ethers } from 'ethers'
 import {
     IncrementalMerkleTree,
     hashLeftRight,
-    genRandomSalt,
+    genRandomNumber,
     stringifyBigInts,
     ZkIdentity,
 } from '@unirep/crypto'
@@ -48,7 +48,7 @@ const genNewGST = (
 ): IncrementalMerkleTree => {
     const emptyUserStateRoot = computeEmptyUserStateRoot(USTDepth)
     const defaultGSTLeaf = hashLeftRight(BigInt(0), emptyUserStateRoot)
-    const GST = new IncrementalMerkleTree(GSTDepth, defaultGSTLeaf, 2)
+    const GST = new IncrementalMerkleTree(GSTDepth, defaultGSTLeaf)
     return GST
 }
 
@@ -58,7 +58,7 @@ const genRandomAttestation = (): Attestation => {
         BigInt(attesterId),
         BigInt(Math.floor(Math.random() * 100)),
         BigInt(Math.floor(Math.random() * 100)),
-        BigNumber.from(genRandomSalt()),
+        BigNumber.from(genRandomNumber()),
         BigInt(Math.floor(Math.random() * 2))
     )
     return attestation
@@ -67,7 +67,7 @@ const genRandomAttestation = (): Attestation => {
 const genRandomList = (length): BigNumberish[] => {
     const array: BigNumberish[] = []
     for (let i = 0; i < length; i++) {
-        array.push(BigNumber.from(genRandomSalt()))
+        array.push(BigNumber.from(genRandomNumber()))
     }
     return array
 }
@@ -169,10 +169,8 @@ const genReputationCircuitInput = async (
             reputationRecords[attester].hash()
         )
     }
-    const userStateRoot = userStateTree.getRootHash()
-    const USTPathElements = await userStateTree.getMerkleProof(
-        BigInt(attesterId)
-    )
+    const userStateRoot = userStateTree.root
+    const USTPathElements = await userStateTree.createProof(BigInt(attesterId))
 
     // Global state tree
     const GSTreeProof = GSTree.createProof(leafIdx) // if there is only one GST leaf, the index is 0
@@ -180,8 +178,8 @@ const genReputationCircuitInput = async (
 
     // selectors and karma nonce
     const nonceStarter = 0
-    const selectors: BigInt[] = []
-    const nonceList: BigInt[] = []
+    const selectors: bigint[] = []
+    const nonceList: bigint[] = []
     for (let i = 0; i < repNullifiersAmount; i++) {
         nonceList.push(BigInt(nonceStarter + i))
         selectors.push(BigInt(1))
@@ -240,10 +238,8 @@ const genProveSignUpCircuitInput = async (
             reputationRecords[attester].hash()
         )
     }
-    const userStateRoot = userStateTree.getRootHash()
-    const USTPathElements = await userStateTree.getMerkleProof(
-        BigInt(attesterId)
-    )
+    const userStateRoot = userStateTree.root
+    const USTPathElements = await userStateTree.createProof(BigInt(attesterId))
 
     // Global state tree
     const GSTreeProof = GSTree.createProof(leafIdx) // if there is only one GST leaf, the index is 0
@@ -413,8 +409,8 @@ const compareEpochTrees = async (
     const usFromJSON = UserState.fromJSON(userId, usWithStorage.toJSON())
     const epochTree3 = await usFromJSON.getUnirepStateEpochTree(epoch)
 
-    expect(epochTree1.getRootHash()).to.equal(epochTree2.getRootHash())
-    expect(epochTree1.getRootHash()).to.equal(epochTree3.getRootHash())
+    expect(epochTree1.root).to.equal(epochTree2.root)
+    expect(epochTree1.root).to.equal(epochTree3.root)
 
     return usWithNoStorage.toJSON()
 }

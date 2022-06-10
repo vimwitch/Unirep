@@ -15,9 +15,8 @@ import {
 import {
     hash5,
     hashLeftRight,
-    IncrementalMerkleTree,
-    SnarkBigInt,
     SparseMerkleTree,
+    SnarkBigInt,
     ZkIdentity,
 } from '@unirep/crypto'
 
@@ -39,11 +38,10 @@ const defaultUserStateLeaf = hash5([
     BigInt(0),
     BigInt(0),
 ])
-const SMT_ZERO_LEAF = hashLeftRight(BigInt(0), BigInt(0))
 const SMT_ONE_LEAF = hashLeftRight(BigInt(1), BigInt(0))
 
-const computeEmptyUserStateRoot = (treeDepth: number): BigInt => {
-    const t = new IncrementalMerkleTree(treeDepth, defaultUserStateLeaf, 2)
+const computeEmptyUserStateRoot = (treeDepth: number): bigint => {
+    const t = new SparseMerkleTree(new Keyv(), treeDepth, defaultUserStateLeaf)
     return t.root
 }
 
@@ -51,12 +49,8 @@ const computeInitUserStateRoot = async (
     treeDepth: number,
     leafIdx?: number,
     airdropPosRep?: number
-): Promise<BigInt> => {
-    const t = await SparseMerkleTree.create(
-        new Keyv(),
-        treeDepth,
-        defaultUserStateLeaf
-    )
+): Promise<bigint> => {
+    const t = new SparseMerkleTree(new Keyv(), treeDepth, defaultUserStateLeaf)
     if (leafIdx && airdropPosRep) {
         const airdropReputation = new Reputation(
             BigInt(airdropPosRep),
@@ -67,7 +61,7 @@ const computeInitUserStateRoot = async (
         const leafValue = airdropReputation.hash()
         await t.update(BigInt(leafIdx), leafValue)
     }
-    return t.getRootHash()
+    return t.root
 }
 
 const genEpochKey = (
@@ -83,9 +77,9 @@ const genEpochKey = (
         BigInt(0),
         BigInt(0),
     ]
-    let epochKey = hash5(values).toString()
+    let epochKey = hash5(values)
     // Adjust epoch key size according to epoch tree depth
-    const epochKeyModed = BigInt(epochKey) % BigInt(2 ** epochTreeDepth)
+    const epochKeyModed = epochKey % BigInt(2 ** epochTreeDepth)
     return epochKeyModed
 }
 
@@ -107,7 +101,7 @@ const genReputationNullifier = (
     identityNullifier: SnarkBigInt,
     epoch: number,
     nonce: number,
-    attesterId: BigInt
+    attesterId: bigint
 ): SnarkBigInt => {
     return hash5([
         REPUTATION_NULLIFIER_DOMAIN,
@@ -118,11 +112,11 @@ const genReputationNullifier = (
     ])
 }
 
-const genNewSMT = async (
+const genNewSMT = (
     treeDepth: number,
-    defaultLeafHash: BigInt
-): Promise<SparseMerkleTree> => {
-    return SparseMerkleTree.create(new Keyv(), treeDepth, defaultLeafHash)
+    defaultLeafHash: bigint
+): SparseMerkleTree => {
+    return new SparseMerkleTree(new Keyv(), treeDepth, defaultLeafHash)
 }
 
 const verifyEpochKeyProofEvent = async (
@@ -1165,7 +1159,6 @@ const genUserState = async (
 export {
     defaultUserStateLeaf,
     SMT_ONE_LEAF,
-    SMT_ZERO_LEAF,
     computeEmptyUserStateRoot,
     computeInitUserStateRoot,
     formatProofForSnarkjsVerification,

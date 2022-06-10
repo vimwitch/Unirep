@@ -1,7 +1,7 @@
 import * as path from 'path'
 import { expect } from 'chai'
 import {
-    genRandomSalt,
+    genRandomNumber,
     hashLeftRight,
     ZkIdentity,
     SparseMerkleTree,
@@ -16,9 +16,11 @@ import {
     genProofAndVerify,
 } from './utils'
 
-import { userStateTransitionCircuitPath } from '../config'
+import {
+    userStateTransitionCircuitPath,
+    NUM_EPOCH_KEY_NONCE_PER_EPOCH,
+} from '../config'
 
-import { NUM_EPOCH_KEY_NONCE_PER_EPOCH } from '../config'
 const epkExistsCircuitPath = path.join(
     __dirname,
     '../circuits/test/epochKeyExists_test.circom'
@@ -56,14 +58,14 @@ describe('User State Transition circuits', function () {
             )
 
             // Epoch tree
-            epochTree = await genNewEpochTree(testEpochTreeDepth)
+            epochTree = genNewEpochTree(testEpochTreeDepth)
 
-            hashChainResult = genRandomSalt()
+            hashChainResult = genRandomNumber()
 
             await epochTree.update(epochKey, hashChainResult)
 
-            epochTreePathElements = await epochTree.getMerkleProof(epochKey)
-            epochTreeRoot = epochTree.getRootHash()
+            epochTreePathElements = await epochTree.createProof(epochKey)
+            epochTreeRoot = epochTree.root
         })
 
         it('Existed epoch key should pass check', async () => {

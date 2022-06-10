@@ -4,7 +4,7 @@ import { BigNumber, ethers } from 'ethers'
 import { expect } from 'chai'
 import { Circuit } from '@unirep/circuits'
 import {
-    genRandomSalt,
+    genRandomNumber,
     ZkIdentity,
     hashLeftRight,
     IncrementalMerkleTree,
@@ -19,7 +19,6 @@ import {
     Attestation,
     genEpochKeyCircuitInput,
     genInputForContract,
-    GSTZERO_VALUE,
     genReputationCircuitInput,
     bootstrapRandomUSTree,
     genProveSignUpCircuitInput,
@@ -52,7 +51,7 @@ describe('EventFilters', () => {
     let epochKey
     let proofIndex
     let tree
-    let stateRoot = genRandomSalt()
+    let stateRoot = genRandomNumber()
     let hashedStateLeaf
     const leafIndex = 0
     const attestingFee = ethers.utils.parseEther('0.1')
@@ -80,12 +79,8 @@ describe('EventFilters', () => {
         expect(receipt.status).equal(1)
         attesterId = await unirepContract.attesters(attesterAddress)
 
-        tree = new IncrementalMerkleTree(
-            GLOBAL_STATE_TREE_DEPTH,
-            GSTZERO_VALUE,
-            2
-        )
-        stateRoot = genRandomSalt()
+        tree = new IncrementalMerkleTree(GLOBAL_STATE_TREE_DEPTH)
+        stateRoot = genRandomNumber()
         hashedStateLeaf = hashLeftRight(userCommitment, stateRoot)
         tree.insert(BigInt(hashedStateLeaf.toString()))
     })
@@ -119,7 +114,7 @@ describe('EventFilters', () => {
             BigInt(attesterId),
             BigInt(1),
             BigInt(0),
-            genRandomSalt(),
+            genRandomNumber(),
             BigInt(signedUpInLeaf)
         )
 

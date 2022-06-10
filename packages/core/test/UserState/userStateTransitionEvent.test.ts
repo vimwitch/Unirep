@@ -2,7 +2,10 @@
 import { ethers as hardhatEthers } from 'hardhat'
 import { BigNumber, BigNumberish, ethers } from 'ethers'
 import { expect } from 'chai'
-import { ZkIdentity, genRandomSalt } from '@unirep/crypto'
+import {
+    ZkIdentity,
+    genRandomNumber,
+} from '@unirep/crypto'
 import {
     deployUnirep,
     EpochKeyProof,
@@ -242,9 +245,9 @@ describe('User state transition events in Unirep User State', async function () 
                     unirepState.genGSTree(i).root
                 )
             }
-            expect(
-                (await userState.getUnirepStateEpochTree(1)).getRootHash()
-            ).equal((await unirepState.genEpochTree(1)).getRootHash())
+            expect((await userState.getUnirepStateEpochTree(1)).root).equal(
+                (await unirepState.genEpochTree(1)).root
+            )
 
             storedUserState = userState.toJSON()
         })
@@ -286,9 +289,9 @@ describe('User state transition events in Unirep User State', async function () 
 
         it('Submit invalid start tranistion proof should not affect Unirep State', async () => {
             const randomProof: BigNumberish[] = genRandomList(8)
-            const randomBlindedUserState = BigNumber.from(genRandomSalt())
-            const randomBlindedHashChain = BigNumber.from(genRandomSalt())
-            const randomGSTRoot = BigNumber.from(genRandomSalt())
+            const randomBlindedUserState = BigNumber.from(genRandomNumber())
+            const randomBlindedHashChain = BigNumber.from(genRandomNumber())
+            const randomGSTRoot = BigNumber.from(genRandomNumber())
             const tx = await unirepContract.startUserStateTransition(
                 randomBlindedUserState,
                 randomBlindedHashChain,
@@ -318,9 +321,15 @@ describe('User state transition events in Unirep User State', async function () 
 
         it('Submit invalid process attestation proof should not affect Unirep State', async () => {
             const randomProof: BigNumberish[] = genRandomList(8)
-            const randomOutputBlindedUserState = BigNumber.from(genRandomSalt())
-            const randomOutputBlindedHashChain = BigNumber.from(genRandomSalt())
-            const randomInputBlindedUserState = BigNumber.from(genRandomSalt())
+            const randomOutputBlindedUserState = BigNumber.from(
+                genRandomNumber()
+            )
+            const randomOutputBlindedHashChain = BigNumber.from(
+                genRandomNumber()
+            )
+            const randomInputBlindedUserState = BigNumber.from(
+                genRandomNumber()
+            )
             const tx = await unirepContract.processAttestations(
                 randomOutputBlindedUserState,
                 randomOutputBlindedHashChain,
@@ -359,13 +368,13 @@ describe('User state transition events in Unirep User State', async function () 
             )
 
             const randomUSTInput = {
-                newGlobalStateTreeLeaf: BigNumber.from(genRandomSalt()),
+                newGlobalStateTreeLeaf: BigNumber.from(genRandomNumber()),
                 epkNullifiers: randomNullifiers,
                 transitionFromEpoch: 1,
                 blindedUserStates: randomBlindedStates,
-                fromGlobalStateTree: BigNumber.from(genRandomSalt()),
+                fromGlobalStateTree: BigNumber.from(genRandomNumber()),
                 blindedHashChains: randomBlindedChains,
-                fromEpochTree: BigNumber.from(genRandomSalt()),
+                fromEpochTree: BigNumber.from(genRandomNumber()),
                 proof: randomProof,
             }
             const tx = await unirepContract.updateUserStateRoot(
@@ -572,9 +581,9 @@ describe('User state transition events in Unirep User State', async function () 
                     unirepState.genGSTree(i).root
                 )
             }
-            expect(
-                (await userState.getUnirepStateEpochTree(2)).getRootHash()
-            ).equal((await unirepState.genEpochTree(2)).getRootHash())
+            expect((await userState.getUnirepStateEpochTree(2)).root).equal(
+                (await unirepState.genEpochTree(2)).root
+            )
         })
     })
 })

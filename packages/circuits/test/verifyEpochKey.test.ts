@@ -1,7 +1,7 @@
 import * as path from 'path'
 import { expect } from 'chai'
 import {
-    genRandomSalt,
+    genRandomNumber,
     hashLeftRight,
     IncrementalMerkleTree,
     ZkIdentity,
@@ -34,7 +34,6 @@ describe('Verify Epoch Key circuits', function () {
     this.timeout(300000)
 
     let circuit
-    let ZERO_VALUE = 0
 
     const maxEPK = BigInt(2 ** EPOCH_TREE_DEPTH)
 
@@ -51,10 +50,10 @@ describe('Verify Epoch Key circuits', function () {
             `Compile time: ${endCompileTime - startCompileTime} seconds`
         )
 
-        tree = new IncrementalMerkleTree(GLOBAL_STATE_TREE_DEPTH, ZERO_VALUE, 2)
+        tree = new IncrementalMerkleTree(GLOBAL_STATE_TREE_DEPTH)
         id = new ZkIdentity()
         commitment = id.genIdentityCommitment()
-        stateRoot = genRandomSalt()
+        stateRoot = genRandomNumber()
 
         const hashedStateLeaf = hashLeftRight(
             commitment.toString(),
@@ -149,7 +148,7 @@ describe('Verify Epoch Key circuits', function () {
     })
 
     it('Mismatched GST tree root should not pass check', async () => {
-        const otherTreeRoot = genRandomSalt()
+        const otherTreeRoot = genRandomNumber()
         const invalidCircuitInputs = (circuitInputs = genEpochKeyCircuitInput(
             id,
             tree,

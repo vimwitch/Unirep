@@ -24,12 +24,10 @@ import {
     verifyProof,
 } from '../circuits/utils'
 import { expect } from 'chai'
-import { IncrementalMerkleTree, SparseMerkleTree } from '@unirep/crypto'
 
 const SMT_ZERO_LEAF = crypto.hashLeftRight(BigInt(0), BigInt(0))
 const SMT_ONE_LEAF = crypto.hashLeftRight(BigInt(1), BigInt(0))
 const EPOCH_KEY_NULLIFIER_DOMAIN = BigInt(1)
-const GSTZERO_VALUE = 0
 
 type UserStates = {
     userStateTree: SparseMerkleTree
@@ -37,27 +35,27 @@ type UserStates = {
 }
 
 interface IAttestation {
-    attesterId: BigInt
-    posRep: BigInt
-    negRep: BigInt
-    graffiti: BigInt
-    signUp: BigInt
-    hash(): BigInt
+    attesterId: bigint
+    posRep: bigint
+    negRep: bigint
+    graffiti: bigint
+    signUp: bigint
+    hash(): bigint
 }
 
 class Attestation implements IAttestation {
-    public attesterId: BigInt
-    public posRep: BigInt
-    public negRep: BigInt
-    public graffiti: BigInt
-    public signUp: BigInt
+    public attesterId: bigint
+    public posRep: bigint
+    public negRep: bigint
+    public graffiti: bigint
+    public signUp: bigint
 
     constructor(
-        _attesterId: BigInt,
-        _posRep: BigInt,
-        _negRep: BigInt,
-        _graffiti: BigInt,
-        _signUp: BigInt
+        _attesterId: bigint,
+        _posRep: bigint,
+        _negRep: bigint,
+        _graffiti: bigint,
+        _signUp: bigint
     ) {
         this.attesterId = _attesterId
         this.posRep = _posRep
@@ -66,7 +64,7 @@ class Attestation implements IAttestation {
         this.signUp = _signUp
     }
 
-    public hash = (): BigInt => {
+    public hash = (): bigint => {
         return crypto.hash5([
             this.attesterId,
             this.posRep,
@@ -92,24 +90,23 @@ class Attestation implements IAttestation {
 }
 
 interface IReputation {
-    posRep: BigInt
-    negRep: BigInt
-    graffiti: BigInt
-    signUp: BigInt
+    posRep: bigint
+    negRep: bigint
+    graffiti: bigint
 }
 
 class Reputation implements IReputation {
-    public posRep: BigInt
-    public negRep: BigInt
-    public graffiti: BigInt
-    public graffitiPreImage: BigInt = BigInt(0)
-    public signUp: BigInt
+    public posRep: bigint
+    public negRep: bigint
+    public graffiti: bigint
+    public graffitiPreImage: bigint = BigInt(0)
+    public signUp: bigint
 
     constructor(
-        _posRep: BigInt,
-        _negRep: BigInt,
-        _graffiti: BigInt,
-        _signUp: BigInt
+        _posRep: bigint,
+        _negRep: bigint,
+        _graffiti: bigint,
+        _signUp: bigint
     ) {
         this.posRep = _posRep
         this.negRep = _negRep
@@ -122,10 +119,10 @@ class Reputation implements IReputation {
     }
 
     public update = (
-        _posRep: BigInt,
-        _negRep: BigInt,
-        _graffiti: BigInt,
-        _signUp: BigInt
+        _posRep: bigint,
+        _negRep: bigint,
+        _graffiti: bigint,
+        _signUp: bigint
     ): Reputation => {
         this.posRep = BigInt(Number(this.posRep) + Number(_posRep))
         this.negRep = BigInt(Number(this.negRep) + Number(_negRep))
@@ -136,7 +133,7 @@ class Reputation implements IReputation {
         return this
     }
 
-    public addGraffitiPreImage = (_graffitiPreImage: BigInt) => {
+    public addGraffitiPreImage = (_graffitiPreImage: bigint) => {
         assert(
             crypto.hashOne(_graffitiPreImage) === this.graffiti,
             'Graffiti pre-image does not match'
@@ -144,7 +141,7 @@ class Reputation implements IReputation {
         this.graffitiPreImage = _graffitiPreImage
     }
 
-    public hash = (): BigInt => {
+    public hash = (): bigint => {
         return crypto.hash5([
             this.posRep,
             this.negRep,
@@ -175,11 +172,11 @@ const toCompleteHexString = (str: string, len?: number): string => {
     return str
 }
 
-const genNewSMT = async (treeDepth: number, defaultLeafHash: BigInt) => {
-    return SparseMerkleTree.create(new Keyv(), treeDepth, defaultLeafHash)
+const genNewSMT = (treeDepth: number, defaultLeafHash: bigint) => {
+    return new crypto.SparseMerkleTree(new Keyv(), treeDepth, defaultLeafHash)
 }
 
-const genNewEpochTree = async (_epochTreeDepth: number = EPOCH_TREE_DEPTH) => {
+const genNewEpochTree = (_epochTreeDepth: number = EPOCH_TREE_DEPTH) => {
     const defaultOTSMTHash = SMT_ONE_LEAF
     return genNewSMT(_epochTreeDepth, defaultOTSMTHash)
 }
@@ -192,12 +189,16 @@ const defaultUserStateLeaf = crypto.hash5([
     BigInt(0),
 ])
 
-const computeEmptyUserStateRoot = (treeDepth: number): BigInt => {
-    const t = new IncrementalMerkleTree(treeDepth, defaultUserStateLeaf, 2)
+const computeEmptyUserStateRoot = (treeDepth: number): bigint => {
+    const t = new crypto.SparseMerkleTree(
+        new Keyv(),
+        treeDepth,
+        defaultUserStateLeaf
+    )
     return t.root
 }
 
-const genNewUserStateTree = async (
+const genNewUserStateTree = (
     _userStateTreeDepth: number = USER_STATE_TREE_DEPTH
 ) => {
     return genNewSMT(_userStateTreeDepth, defaultUserStateLeaf)
@@ -216,9 +217,9 @@ const genEpochKey = (
         BigInt(0),
         BigInt(0),
     ]
-    let epochKey = crypto.hash5(values).toString()
+    let epochKey = crypto.hash5(values)
     // Adjust epoch key size according to epoch tree depth
-    const epochKeyModed = BigInt(epochKey) % BigInt(2 ** _epochTreeDepth)
+    const epochKeyModed = epochKey % BigInt(2 ** _epochTreeDepth)
     return epochKeyModed
 }
 
@@ -226,7 +227,7 @@ const genEpochKeyCircuitInput = (
     id: crypto.ZkIdentity,
     tree: crypto.IncrementalMerkleTree,
     leafIndex: number,
-    ustRoot: BigInt,
+    ustRoot: bigint,
     epoch: number,
     nonce: number
 ) => {
@@ -252,7 +253,7 @@ const genStartTransitionCircuitInput = (
     id: crypto.ZkIdentity,
     tree: crypto.IncrementalMerkleTree,
     leafIndex: number,
-    ustRoot: BigInt,
+    ustRoot: bigint,
     epoch: number,
     nonce: number
 ) => {
@@ -274,7 +275,7 @@ const genStartTransitionCircuitInput = (
 
 const bootstrapRandomUSTree = async (): Promise<UserStates> => {
     const expectedNumAttestationsMade = 5
-    const userStateTree = await genNewUserStateTree()
+    const userStateTree = genNewUserStateTree()
     let reputationRecords = {}
     // Bootstrap user state for the first `expectedNumAttestationsMade` attesters
     for (let i = 1; i < expectedNumAttestationsMade; i++) {
@@ -286,7 +287,7 @@ const bootstrapRandomUSTree = async (): Promise<UserStates> => {
             reputationRecords[attesterId.toString()] = new Reputation(
                 BigInt(Math.floor(Math.random() * 100)),
                 BigInt(Math.floor(Math.random() * 100)),
-                crypto.genRandomSalt(),
+                crypto.genRandomNumber(),
                 BigInt(signUp)
             )
         }
@@ -300,32 +301,32 @@ const bootstrapRandomUSTree = async (): Promise<UserStates> => {
 
 const genProcessAttestationsCircuitInput = async (
     id: crypto.ZkIdentity,
-    epoch: BigInt,
-    fromNonce: BigInt,
-    toNonce: BigInt,
+    epoch: bigint,
+    fromNonce: bigint,
+    toNonce: bigint,
     _selectors?: number[],
-    _hashChainStarter?: BigInt,
+    _hashChainStarter?: bigint,
     _attestations?: Attestation[]
 ) => {
-    const oldPosReps: BigInt[] = []
-    const oldNegReps: BigInt[] = []
-    const oldGraffities: BigInt[] = []
-    const oldSignUps: BigInt[] = []
-    const attesterIds: BigInt[] = []
-    const posReps: BigInt[] = []
-    const negReps: BigInt[] = []
-    const overwriteGraffitis: BigInt[] = []
-    const graffities: BigInt[] = []
-    const signUps: BigInt[] = []
+    const oldPosReps: bigint[] = []
+    const oldNegReps: bigint[] = []
+    const oldGraffities: bigint[] = []
+    const oldSignUps: bigint[] = []
+    const attesterIds: bigint[] = []
+    const posReps: bigint[] = []
+    const negReps: bigint[] = []
+    const overwriteGraffitis: bigint[] = []
+    const graffities: bigint[] = []
+    const signUps: bigint[] = []
     let selectors: number[] = []
     const hashChainStarter =
         _hashChainStarter === undefined
-            ? crypto.genRandomSalt()
+            ? crypto.genRandomNumber()
             : _hashChainStarter
-    const intermediateUserStateTreeRoots: BigInt[] = []
-    const userStateTreePathElements: BigInt[][] = []
+    const intermediateUserStateTreeRoots: bigint[] = []
+    const userStateTreePathElements: bigint[][] = []
 
-    const userStateTree = await genNewUserStateTree()
+    const userStateTree = genNewUserStateTree()
     let reputationRecords = {}
 
     // Bootstrap user state
@@ -339,7 +340,7 @@ const genProcessAttestationsCircuitInput = async (
             reputationRecords[attesterId.toString()] = new Reputation(
                 BigInt(Math.floor(Math.random() * 100)),
                 BigInt(Math.floor(Math.random() * 100)),
-                crypto.genRandomSalt(),
+                crypto.genRandomNumber(),
                 BigInt(signUp)
             )
         }
@@ -348,7 +349,7 @@ const genProcessAttestationsCircuitInput = async (
             reputationRecords[attesterId.toString()].hash()
         )
     }
-    intermediateUserStateTreeRoots.push(userStateTree.getRootHash())
+    intermediateUserStateTreeRoots.push(userStateTree.root)
 
     // Ensure as least one of the selectors is true
     const selTrue = Math.floor(Math.random() * NUM_ATTESTATIONS_PER_PROOF)
@@ -399,7 +400,7 @@ const genProcessAttestationsCircuitInput = async (
             oldSignUps.push(reputationRecords[attesterId.toString()]['signUp'])
 
             // Get old reputation record proof
-            const oldReputationRecordProof = await userStateTree.getMerkleProof(
+            const oldReputationRecordProof = await userStateTree.createProof(
                 attesterId
             )
             userStateTreePathElements.push(oldReputationRecordProof)
@@ -428,13 +429,13 @@ const genProcessAttestationsCircuitInput = async (
             oldGraffities.push(BigInt(0))
             oldSignUps.push(BigInt(0))
 
-            const leafZeroPathElements = await userStateTree.getMerkleProof(
+            const leafZeroPathElements = await userStateTree.createProof(
                 BigInt(0)
             )
             userStateTreePathElements.push(leafZeroPathElements)
         }
 
-        intermediateUserStateTreeRoots.push(userStateTree.getRootHash())
+        intermediateUserStateTreeRoots.push(userStateTree.root)
     }
     const inputBlindedUserState = crypto.hash5([
         id.identityNullifier,
@@ -483,41 +484,34 @@ const genUserStateTransitionCircuitInput = async (
         NUM_EPOCH_KEY_NONCE_PER_EPOCH
 
     // Epoch tree
-    const epochTree = await genNewEpochTree()
+    const epochTree = genNewEpochTree()
 
     // User state tree
-    const { userStateTree } = await bootstrapRandomUSTree()
-    const intermediateUserStateTreeRoots: BigInt[] = []
-    const blindedUserState: BigInt[] = []
-    const blindedHashChain: BigInt[] = []
-    const epochTreePathElements: BigInt[][] = []
+    const userStateTree = await bootstrapRandomUSTree()
+    const intermediateUserStateTreeRoots: bigint[] = []
+    const blindedUserState: bigint[] = []
+    const blindedHashChain: bigint[] = []
+    const epochTreePathElements: bigint[][] = []
 
-    intermediateUserStateTreeRoots.push(userStateTree.getRootHash())
+    intermediateUserStateTreeRoots.push(userStateTree.root)
     blindedUserState.push(
         crypto.hash5([
             id.identityNullifier,
-            userStateTree.getRootHash(),
+            userStateTree.root,
             BigInt(epoch),
             BigInt(startEpochKeyNonce),
         ])
     )
 
     // Global state tree
-    const GSTree = new crypto.IncrementalMerkleTree(
-        GLOBAL_STATE_TREE_DEPTH,
-        GSTZERO_VALUE,
-        2
-    )
+    const GSTree = new crypto.IncrementalMerkleTree(GLOBAL_STATE_TREE_DEPTH)
     const commitment = id.genIdentityCommitment()
-    const hashedLeaf = crypto.hashLeftRight(
-        commitment,
-        userStateTree.getRootHash()
-    )
+    const hashedLeaf = crypto.hashLeftRight(commitment, userStateTree.root)
     GSTree.insert(hashedLeaf)
     const GSTreeProof = GSTree.createProof(0)
     const GSTreeRoot = GSTree.root
 
-    const hashChainResults: BigInt[] = []
+    const hashChainResults: bigint[] = []
     // Begin generating and processing attestations
     for (let nonce = 0; nonce < NUM_EPOCH_KEY_NONCE_PER_EPOCH; nonce++) {
         // Each epoch key has `ATTESTATIONS_PER_EPOCH_KEY` of attestations so
@@ -528,7 +522,7 @@ const genUserStateTransitionCircuitInput = async (
             nonce,
             EPOCH_TREE_DEPTH
         )
-        const hashChainResult = crypto.genRandomSalt()
+        const hashChainResult = crypto.genRandomNumber()
 
         // Blinded hash chain result
         hashChainResults.push(hashChainResult)
@@ -551,7 +545,7 @@ const genUserStateTransitionCircuitInput = async (
         await epochTree.update(epochKey, sealedHashChainResult)
     }
 
-    const intermediateUserStateTreeRoot = crypto.genRandomSalt()
+    const intermediateUserStateTreeRoot = crypto.genRandomNumber()
     intermediateUserStateTreeRoots.push(intermediateUserStateTreeRoot)
     blindedUserState.push(
         crypto.hash5([
@@ -570,9 +564,9 @@ const genUserStateTransitionCircuitInput = async (
             EPOCH_TREE_DEPTH
         )
         // Get epoch tree root and merkle proof for this epoch key
-        epochTreePathElements.push(await epochTree.getMerkleProof(epochKey))
+        epochTreePathElements.push(await epochTree.createProof(epochKey))
     }
-    const epochTreeRoot = epochTree.getRootHash()
+    const epochTreeRoot = epochTree.root
 
     const circuitInputs = {
         epoch: epoch,
@@ -618,24 +612,18 @@ const genReputationCircuitInput = async (
     }
 
     // User state tree
-    const userStateTree = await genNewUserStateTree()
+    const userStateTree = genNewUserStateTree()
     for (const attester of Object.keys(reputationRecords)) {
         await userStateTree.update(
             BigInt(attester),
             reputationRecords[attester].hash()
         )
     }
-    const userStateRoot = userStateTree.getRootHash()
-    const USTPathElements = await userStateTree.getMerkleProof(
-        BigInt(attesterId)
-    )
+    const userStateRoot = userStateTree.root
+    const USTPathElements = await userStateTree.createProof(BigInt(attesterId))
 
     // Global state tree
-    const GSTree = new crypto.IncrementalMerkleTree(
-        GLOBAL_STATE_TREE_DEPTH,
-        GSTZERO_VALUE,
-        2
-    )
+    const GSTree = new crypto.IncrementalMerkleTree(GLOBAL_STATE_TREE_DEPTH)
     const commitment = id.genIdentityCommitment()
     const hashedLeaf = crypto.hashLeftRight(commitment, userStateRoot)
     GSTree.insert(hashedLeaf)
@@ -644,8 +632,8 @@ const genReputationCircuitInput = async (
 
     // selectors and karma nonce
     const nonceStarter = 0
-    const selectors: BigInt[] = []
-    const nonceList: BigInt[] = []
+    const selectors: bigint[] = []
+    const nonceList: bigint[] = []
     for (let i = 0; i < repNullifiersAmount; i++) {
         nonceList.push(BigInt(nonceStarter + i))
         selectors.push(BigInt(1))
@@ -695,24 +683,18 @@ const genProveSignUpCircuitInput = async (
     }
 
     // User state tree
-    const userStateTree = await genNewUserStateTree()
+    const userStateTree = genNewUserStateTree()
     for (const attester of Object.keys(reputationRecords)) {
         await userStateTree.update(
             BigInt(attester),
             reputationRecords[attester].hash()
         )
     }
-    const userStateRoot = userStateTree.getRootHash()
-    const USTPathElements = await userStateTree.getMerkleProof(
-        BigInt(attesterId)
-    )
+    const userStateRoot = userStateTree.root
+    const USTPathElements = await userStateTree.createProof(BigInt(attesterId))
 
     // Global state tree
-    const GSTree = new crypto.IncrementalMerkleTree(
-        GLOBAL_STATE_TREE_DEPTH,
-        GSTZERO_VALUE,
-        2
-    )
+    const GSTree = new crypto.IncrementalMerkleTree(GLOBAL_STATE_TREE_DEPTH)
     const commitment = id.genIdentityCommitment()
     const hashedLeaf = crypto.hashLeftRight(commitment, userStateRoot)
     GSTree.insert(hashedLeaf)
@@ -801,7 +783,6 @@ export {
     Reputation,
     SMT_ONE_LEAF,
     SMT_ZERO_LEAF,
-    GSTZERO_VALUE,
     computeEmptyUserStateRoot,
     defaultUserStateLeaf,
     genNewEpochTree,
