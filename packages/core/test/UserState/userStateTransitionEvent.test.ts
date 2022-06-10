@@ -2,10 +2,7 @@
 import { ethers as hardhatEthers } from 'hardhat'
 import { BigNumber, BigNumberish, ethers } from 'ethers'
 import { expect } from 'chai'
-import {
-    ZkIdentity,
-    genRandomNumber,
-} from '@unirep/crypto'
+import { ZkIdentity, genRandomNumber } from '@unirep/crypto'
 import {
     deployUnirep,
     EpochKeyProof,

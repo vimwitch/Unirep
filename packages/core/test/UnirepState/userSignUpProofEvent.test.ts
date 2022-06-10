@@ -312,7 +312,9 @@ describe('User sign up proof (Airdrop proof) events in Unirep State', function (
                     reputationRecords[attester].hash()
                 )
             }
-            const GSTree = new IncrementalMerkleTree(treeDepths.globalStateTreeDepth)
+            const GSTree = new IncrementalMerkleTree(
+                treeDepths.globalStateTreeDepth
+            )
             const id = new ZkIdentity()
             const commitment = id.genIdentityCommitment()
             const stateRoot = userStateTree.root
