@@ -1,32 +1,28 @@
 {
     "name": "@unirep/circuits",
     "version": "1.0.0",
-    "main": "dist/circuits/utils.js",
-    "types": "dist/circuits/utils.d.ts",
     "scripts": {
         "pre": "node scripts/prepare",
-        "build": "yarn downloadPtau && yarn buildCircuits && yarn buildVerifyEpochKeySnark && yarn buildUserStateTransitionSnark && yarn buildProveReputationSnark && yarn buildProveUserSignUpSnark && yarn buildTs && yarn copyCircom",
-        "downloadPtau": "./scripts/downloadPtau.sh",
+        "build": "yarn downloadPtau && yarn buildCircuits && yarn buildSnarks && tsc",
+        "downloadPtau": "npx ts-node scripts/downloadPtau.ts",
         "buildCircuits": "npx ts-node scripts/buildCircuits.ts",
-        "buildVerifyEpochKeySnark": "./scripts/buildVerifyEpochKeySnark.sh",
-        "buildUserStateTransitionSnark": "./scripts/buildUserStateTransitionSnark.sh",
-        "buildProveReputationSnark": "./scripts/buildProveReputationSnark.sh",
-        "buildProveUserSignUpSnark": "./scripts/buildProveUserSignUpSnark.sh",
+        "buildSnarks": "npx ts-node scripts/buildSnarks.ts",
+        "buildTestCircuits": "npx ts-node scripts/buildTestCircuits.ts",
         "buildTs": "tsc",
-        "copyCircom": "rm -rf ./dist/zksnarkBuild && cp -rf ./zksnarkBuild ./dist/zksnarkBuild",
-        "test": "mocha -r ts-node/register test/*.test.ts --exit",
+        "test": "yarn buildTestCircuits && mocha -r ts-node/register test/*.test.ts --exit",
         "lint": "prettier --write ."
     },
     "repository": "https://github.com/unirep/unirep.git",
     "author": "vivianjeng <vivi432@yahoo.com.tw>",
     "license": "MIT",
     "dependencies": {
-        "@unirep/crypto": "1.0.0",
-        "snarkjs": "^0.4.7"
+        "@unirep/crypto": "1.0.0"
     },
     "devDependencies": {
         "circom": "^0.5.46",
         "circomlib": "0.5.3",
-        "mocha": "^10.0.0"
+        "mocha": "^10.0.0",
+        "shelljs": "^0.8.5",
+        "snarkjs": "^0.4.7"
     }
 }
