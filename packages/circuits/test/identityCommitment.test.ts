@@ -1,13 +1,11 @@
 import * as path from 'path'
 import { expect } from 'chai'
 import { ZkIdentity } from '@unirep/crypto'
-import { executeCircuit, getSignalByName } from '../circuits/utils'
-import { compileAndLoadCircuit } from './utils'
 
-const circuitPath = path.join(
-    __dirname,
-    '../circuits/test/identityCommitment_test.circom'
-)
+import { exportBuildPath } from './config'
+import { executeCircuit, getSignalByName, compileAndLoadCircuit } from './utils'
+
+const circuitPath = path.join(exportBuildPath, 'identityCommitment_test.circom')
 
 describe('(Semaphore) identity commitment', function () {
     this.timeout(200000)

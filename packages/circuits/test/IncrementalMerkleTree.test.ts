@@ -6,17 +6,18 @@ import {
     hashOne,
     SnarkBigInt,
 } from '@unirep/crypto'
-import { executeCircuit, getSignalByName } from '../circuits/utils'
-import { compileAndLoadCircuit } from './utils'
 
-const LEVELS = 4
+import { compileAndLoadCircuit, executeCircuit, getSignalByName } from './utils'
+import { exportBuildPath, testConfig } from './config'
+
+const LEVELS = testConfig.globalStateTreeDepth
 const LeafExistsCircuitPath = path.join(
-    __dirname,
-    '../circuits/test/merkleTreeLeafExists_test.circom'
+    exportBuildPath,
+    'merkleTreeLeafExists_test.circom'
 )
 const InclusionProofCircuitPath = path.join(
-    __dirname,
-    '../circuits/test/merkleTreeInclusionProof_test.circom'
+    exportBuildPath,
+    'merkleTreeInclusionProof_test.circom'
 )
 
 describe('Merkle Tree circuits', function () {

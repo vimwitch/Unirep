@@ -7,16 +7,22 @@ import {
     SparseMerkleTree,
     IncrementalMerkleTree,
 } from '@unirep/crypto'
-import { executeCircuit, getSignalByName, Circuit } from '../circuits/utils'
+
 import {
+    executeCircuit,
+    getSignalByName,
     compileAndLoadCircuit,
     genStartTransitionCircuitInput,
     bootstrapRandomUSTree,
     genProofAndVerify,
 } from './utils'
-import { startTransitionCircuitPath, GLOBAL_STATE_TREE_DEPTH } from '../config'
+import { CircuitName } from '../src'
+import { config, exportBuildPath } from './config'
 
-const circuitPath = path.join(__dirname, startTransitionCircuitPath)
+const circuitPath = path.join(
+    exportBuildPath,
+    `${CircuitName.StartTransition}_main.circom`
+)
 
 describe('User State Transition circuits', function () {
     this.timeout(60000)
@@ -48,7 +54,7 @@ describe('User State Transition circuits', function () {
             userStateTree = result.userStateTree
 
             // Global state tree
-            GSTree = new IncrementalMerkleTree(GLOBAL_STATE_TREE_DEPTH)
+            GSTree = new IncrementalMerkleTree(config.globalStateTreeDepth)
             const commitment = user.genIdentityCommitment()
             hashedLeaf = hashLeftRight(commitment, userStateTree.root)
             GSTree.insert(hashedLeaf)
@@ -93,7 +99,7 @@ describe('User State Transition circuits', function () {
                 expect(outputHashChainResult).to.equal(expectedHashChainResult)
 
                 const isValid = await genProofAndVerify(
-                    Circuit.startTransition,
+                    CircuitName.StartTransition,
                     circuitInputs
                 )
                 expect(isValid).to.be.true

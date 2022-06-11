@@ -6,16 +6,14 @@ import {
     hashLeftRight,
     hash5,
 } from '@unirep/crypto'
-import { executeCircuit, getSignalByName } from '../circuits/utils'
-import { compileAndLoadCircuit } from './utils'
 
-const hasher5CircuitPath = path.join(
-    __dirname,
-    '../circuits/test/hasher5_test.circom'
-)
+import { compileAndLoadCircuit, executeCircuit, getSignalByName } from './utils'
+import { exportBuildPath } from './config'
+
+const hasher5CircuitPath = path.join(exportBuildPath, 'hasher5_test.circom')
 const hashleftrightCircuitPath = path.join(
-    __dirname,
-    '../circuits/test/hashleftright_test.circom'
+    exportBuildPath,
+    'hashleftright_test.circom'
 )
 
 describe('Poseidon hash circuits', function () {

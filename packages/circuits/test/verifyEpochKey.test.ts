@@ -7,35 +7,28 @@ import {
     ZkIdentity,
 } from '@unirep/crypto'
 import {
-    Circuit,
     executeCircuit,
-    formatProofForSnarkjsVerification,
-    formatProofForVerifierContract,
-    genProofAndPublicSignals,
+    genProof,
     verifyProof,
-} from '../circuits/utils'
-
-import {
-    EPOCH_TREE_DEPTH,
-    GLOBAL_STATE_TREE_DEPTH,
-    NUM_EPOCH_KEY_NONCE_PER_EPOCH,
-} from '../config'
-
-import { verifyEpochKeyCircuitPath } from '../config'
-import {
     compileAndLoadCircuit,
     genEpochKeyCircuitInput,
     throwError,
 } from './utils'
 
-const circuitPath = path.join(__dirname, verifyEpochKeyCircuitPath)
+import { config, exportBuildPath } from './config'
+import { CircuitName } from '../src'
+
+const circuitPath = path.join(
+    exportBuildPath,
+    `${CircuitName.VerifyEpochKey}_main.circom`
+)
 
 describe('Verify Epoch Key circuits', function () {
     this.timeout(300000)
 
     let circuit
 
-    const maxEPK = BigInt(2 ** EPOCH_TREE_DEPTH)
+    const maxEPK = BigInt(2 ** config.epochTreeDepth)
 
     let id: ZkIdentity, commitment, stateRoot
     let tree, leafIndex
@@ -50,7 +43,7 @@ describe('Verify Epoch Key circuits', function () {
             `Compile time: ${endCompileTime - startCompileTime} seconds`
         )
 
-        tree = new IncrementalMerkleTree(GLOBAL_STATE_TREE_DEPTH)
+        tree = new IncrementalMerkleTree(config.globalStateTreeDepth)
         id = new ZkIdentity()
         commitment = id.genIdentityCommitment()
         stateRoot = genRandomNumber()
@@ -68,7 +61,7 @@ describe('Verify Epoch Key circuits', function () {
 
     it('Valid epoch key should pass check', async () => {
         // Check if every valid nonce works
-        for (let i = 0; i < NUM_EPOCH_KEY_NONCE_PER_EPOCH; i++) {
+        for (let i = 0; i < config.numEpochKeyNoncePerEpoch; i++) {
             const n = i
             circuitInputs = genEpochKeyCircuitInput(
                 id,
@@ -81,8 +74,8 @@ describe('Verify Epoch Key circuits', function () {
 
             await executeCircuit(circuit, circuitInputs)
             const startTime = new Date().getTime()
-            const { proof, publicSignals } = await genProofAndPublicSignals(
-                Circuit.verifyEpochKey,
+            const { proof, publicSignals } = await genProof(
+                CircuitName.VerifyEpochKey,
                 circuitInputs
             )
             const endTime = new Date().getTime()
@@ -92,17 +85,8 @@ describe('Verify Epoch Key circuits', function () {
                 )} s)`
             )
             let isValid = await verifyProof(
-                Circuit.verifyEpochKey,
+                CircuitName.VerifyEpochKey,
                 proof,
-                publicSignals
-            )
-            expect(isValid).to.be.true
-
-            const formatProof = formatProofForVerifierContract(proof)
-            const snarkjsProof = formatProofForSnarkjsVerification(formatProof)
-            isValid = await verifyProof(
-                Circuit.verifyEpochKey,
-                snarkjsProof,
                 publicSignals
             )
             expect(isValid).to.be.true
@@ -166,7 +150,7 @@ describe('Verify Epoch Key circuits', function () {
     })
 
     it('Invalid nonce should not pass check', async () => {
-        const invalidNonce = NUM_EPOCH_KEY_NONCE_PER_EPOCH
+        const invalidNonce = config.numEpochKeyNoncePerEpoch
         const invalidCircuitInputs = (circuitInputs = genEpochKeyCircuitInput(
             id,
             tree,

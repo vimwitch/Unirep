@@ -1,7 +1,7 @@
 import * as path from 'path'
 import { expect } from 'chai'
 import { genRandomNumber, ZkIdentity, hashOne } from '@unirep/crypto'
-import { Circuit, executeCircuit } from '../circuits/utils'
+import { CircuitName } from '../src'
 import {
     genEpochKey,
     Reputation,
@@ -9,9 +9,14 @@ import {
     genProveSignUpCircuitInput,
     throwError,
     genProofAndVerify,
+    executeCircuit,
 } from './utils'
-import { proveUserSignUpCircuitPath, EPOCH_TREE_DEPTH } from '../config'
-const circuitPath = path.join(__dirname, proveUserSignUpCircuitPath)
+import { config, exportBuildPath } from './config'
+
+const circuitPath = path.join(
+    exportBuildPath,
+    `${CircuitName.ProveUserSignUp}_main.circom`
+)
 
 describe('Prove user has signed up circuit', function () {
     this.timeout(300000)
@@ -72,7 +77,7 @@ describe('Prove user has signed up circuit', function () {
         await executeCircuit(circuit, circuitInputs)
 
         const isValid = await genProofAndVerify(
-            Circuit.proveUserSignUp,
+            CircuitName.ProveUserSignUp,
             circuitInputs
         )
         expect(isValid).to.be.true
@@ -90,7 +95,7 @@ describe('Prove user has signed up circuit', function () {
         await executeCircuit(circuit, circuitInputs)
 
         const isValid = await genProofAndVerify(
-            Circuit.proveUserSignUp,
+            CircuitName.ProveUserSignUp,
             circuitInputs
         )
         expect(isValid).to.be.true
@@ -114,7 +119,7 @@ describe('Prove user has signed up circuit', function () {
         )
 
         const isValid = await genProofAndVerify(
-            Circuit.proveUserSignUp,
+            CircuitName.ProveUserSignUp,
             circuitInputs
         )
         expect(isValid).to.be.false
@@ -127,7 +132,7 @@ describe('Prove user has signed up circuit', function () {
             user.identityNullifier,
             epoch,
             wrongNonce,
-            EPOCH_TREE_DEPTH
+            config.epochTreeDepth
         )
         const circuitInputs = await genProveSignUpCircuitInput(
             user,
@@ -144,7 +149,7 @@ describe('Prove user has signed up circuit', function () {
         )
 
         const isValid = await genProofAndVerify(
-            Circuit.proveUserSignUp,
+            CircuitName.ProveUserSignUp,
             circuitInputs
         )
         expect(isValid).to.be.false
@@ -168,7 +173,7 @@ describe('Prove user has signed up circuit', function () {
         )
 
         const isValid = await genProofAndVerify(
-            Circuit.proveUserSignUp,
+            CircuitName.ProveUserSignUp,
             circuitInputs
         )
         expect(isValid).to.be.false

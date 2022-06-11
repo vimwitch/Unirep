@@ -1,19 +1,24 @@
 import * as path from 'path'
 import { expect } from 'chai'
 import { genRandomNumber, hash5, ZkIdentity } from '@unirep/crypto'
-import { executeCircuit, getSignalByName, Circuit } from '../circuits/utils'
+
+import { CircuitName } from '../src'
+import { config, exportBuildPath } from './config'
 import {
+    executeCircuit,
+    getSignalByName,
     Attestation,
     compileAndLoadCircuit,
     genProcessAttestationsCircuitInput,
     genProofAndVerify,
     throwError,
 } from './utils'
-import { processAttestationsCircuitPath } from '../config/'
 
-import { NUM_ATTESTATIONS_PER_PROOF } from '../config'
-
-const circuitPath = path.join(__dirname, processAttestationsCircuitPath)
+const circuitPath = path.join(
+    exportBuildPath,
+    `${CircuitName.ProcessAttestations}_main.circom`
+)
+const NUM_ATTESTATIONS_PER_PROOF = config.numAttestationsPerProof
 
 describe('Process attestation circuit', function () {
     this.timeout(300000)
@@ -73,7 +78,7 @@ describe('Process attestation circuit', function () {
         expect(outputHashChainResult).to.equal(expectedHashChainResult)
 
         const isValid = await genProofAndVerify(
-            Circuit.processAttestations,
+            CircuitName.ProcessAttestations,
             circuitInputs
         )
         expect(isValid).to.be.true

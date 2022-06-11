@@ -7,25 +7,27 @@ import {
     SparseMerkleTree,
     SnarkBigInt,
 } from '@unirep/crypto'
-import { executeCircuit, getSignalByName, Circuit } from '../circuits/utils'
+
 import {
+    executeCircuit,
+    getSignalByName,
     genNewEpochTree,
     genEpochKey,
     compileAndLoadCircuit,
     genUserStateTransitionCircuitInput,
     genProofAndVerify,
 } from './utils'
-
-import {
-    userStateTransitionCircuitPath,
-    NUM_EPOCH_KEY_NONCE_PER_EPOCH,
-} from '../config'
+import { CircuitName } from '../src'
+import { exportBuildPath, testConfig } from './config'
 
 const epkExistsCircuitPath = path.join(
-    __dirname,
-    '../circuits/test/epochKeyExists_test.circom'
+    exportBuildPath,
+    'epochKeyExists_test.circom'
 )
-const USTCircuitPath = path.join(__dirname, userStateTransitionCircuitPath)
+const USTCircuitPath = path.join(
+    exportBuildPath,
+    `${CircuitName.UserStateTransition}_main.circom`
+)
 
 describe('User State Transition circuits', function () {
     this.timeout(600000)
@@ -36,8 +38,8 @@ describe('User State Transition circuits', function () {
     describe('Epoch key exists', () => {
         let circuit
 
-        const nonce = NUM_EPOCH_KEY_NONCE_PER_EPOCH - 1
-        const testEpochTreeDepth = 32
+        const nonce = testConfig.numEpochKeyNoncePerEpoch - 1
+        const testEpochTreeDepth = testConfig.epochTreeDepth
         const epochKey: SnarkBigInt = genEpochKey(
             user.identityNullifier,
             epoch,
@@ -119,7 +121,7 @@ describe('User State Transition circuits', function () {
                 )
 
                 const isValid = await genProofAndVerify(
-                    Circuit.userStateTransition,
+                    CircuitName.UserStateTransition,
                     circuitInputs
                 )
                 expect(isValid).to.be.true

@@ -1,17 +1,20 @@
 import * as path from 'path'
 import { expect } from 'chai'
 import { genRandomNumber, hashOne, SparseMerkleTree } from '@unirep/crypto'
-import { executeCircuit, getSignalByName } from '../circuits/utils'
-import { genNewSMT, compileAndLoadCircuit } from './utils'
+
+import {
+    genNewSMT,
+    compileAndLoadCircuit,
+    executeCircuit,
+    getSignalByName,
+} from './utils'
+import { exportBuildPath, testConfig } from './config'
 // circuitEpochTreeDepth too large will greatly slow down the test...
-const circuitEpochTreeDepth = 8
-const circuitPath = path.join(
-    __dirname,
-    '../circuits/test/smtLeafExists_test.circom'
-)
+const circuitEpochTreeDepth = testConfig.epochTreeDepth
+const circuitPath = path.join(exportBuildPath, 'smtLeafExists_test.circom')
 const InclusionProofCircuitPath = path.join(
-    __dirname,
-    '../circuits/test/smtInclusionProof_test.circom'
+    exportBuildPath,
+    'smtInclusionProof_test.circom'
 )
 
 describe('Sparse Merkle Tree circuits', function () {

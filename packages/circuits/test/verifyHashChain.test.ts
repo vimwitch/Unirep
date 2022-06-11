@@ -1,26 +1,23 @@
-import { genRandomNumber, hashLeftRight, SnarkBigInt } from '@unirep/crypto'
 import * as path from 'path'
+import { genRandomNumber, hashLeftRight, SnarkBigInt } from '@unirep/crypto'
 
-import { executeCircuit } from '../circuits/utils'
-import { compileAndLoadCircuit, throwError } from './utils'
+import { config, exportBuildPath } from './config'
+import { compileAndLoadCircuit, throwError, executeCircuit } from './utils'
 
-const sealedHashChainCircuitPath = path.join(
-    __dirname,
-    '../circuits/test/verifyHashChain_test.circom'
-)
+const circuitPath = path.join(exportBuildPath, 'verifyHashChain_test.circom')
 
 describe('Hash chain circuit', function () {
     this.timeout(30000)
     let circuit
 
-    const NUM_ELEMENT = 10
+    const NUM_ELEMENT = config.numAttestationsPerProof
     const elements: SnarkBigInt[] = []
     let cur: bigint = BigInt(0)
     let result
     const selectors: number[] = []
 
     before(async () => {
-        circuit = await compileAndLoadCircuit(sealedHashChainCircuitPath)
+        circuit = await compileAndLoadCircuit(circuitPath)
 
         for (let i = 0; i < NUM_ELEMENT; i++) {
             const element = genRandomNumber()
