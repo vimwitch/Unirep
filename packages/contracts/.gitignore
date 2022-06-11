@@ -4,6 +4,8 @@ build-info
 node_modules
 .DS_Store
 typechain
+# output typechain types
+!src/typechain
 build
 vbuild
 contracts/verifiers

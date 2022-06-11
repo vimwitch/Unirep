@@ -29,7 +29,7 @@ const config: HardhatUserConfig = {
     },
 
     typechain: {
-        outDir: './typechain',
+        outDir: './src/typechain',
     },
     gasReporter: {
         enabled: process.env.REPORT_GAS ? true : false,

@@ -7,13 +7,16 @@
     "license": "MIT",
     "scripts": {
         "pre": "node scripts/prepare",
-        "build": "./scripts/buildVerifiers.sh && yarn compile && npx hardhat typechain && tsc",
+        "build": "npx ts-node scripts/buildVerifiers.ts && yarn compile && yarn typechain && tsc && yarn lint",
         "compile": "npx hardhat compile",
+        "typechain": "npx hardhat typechain && yarn genABI && yarn removeFactory",
+        "genABI": "npx ts-node scripts/abiGenerator.ts",
+        "removeFactory": "npx ts-node scripts/removeFactory.ts",
+        "deploy": "hardhat run --no-compile --network local scripts/deploy.js",
         "test": "npx hardhat test --no-compile",
         "lint": "prettier --write ."
     },
     "dependencies": {
-        "@unirep/circuits": "1.0.0",
         "@unirep/crypto": "1.0.0",
         "ethers": "^5.6.8"
     },

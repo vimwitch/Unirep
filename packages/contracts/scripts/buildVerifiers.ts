@@ -1,40 +1,33 @@
-import { getVKey } from '@unirep/circuits'
-import * as argparse from 'argparse'
 import * as fs from 'fs'
+import path from 'path'
 
+import { CircuitName } from '../src/types/circuit'
 import { genSnarkVerifierSol } from './genVerifier'
+import { verifiersPath, zkFilesPath } from './config'
+
+const createVerifierName = (circuit: string) => {
+    return `${circuit.charAt(0).toUpperCase() + circuit.slice(1)}Verifier`
+}
 
 const main = async (): Promise<number> => {
-    const parser = new argparse.ArgumentParser({
-        description:
-            'Compile a circom circuit and generate its proving key, verification key, and Solidity verifier',
-    })
+    // create verifier folder
+    try {
+        fs.mkdirSync(verifiersPath, { recursive: true })
+    } catch (e) {
+        console.log('Cannot create folder ', e)
+    }
 
-    parser.add_argument('-s', '--sol-out', {
-        help: 'The filepath to save the Solidity verifier contract',
-        required: true,
-    })
+    for (const circuit of Object.keys(CircuitName)) {
+        const verifierName = createVerifierName(circuit)
+        const solOut = path.join(verifiersPath, `${verifierName}.sol`)
+        const vKey = require(path.join(zkFilesPath, `${circuit}.vkey.json`))
 
-    parser.add_argument('-cn', '--circuit-name', {
-        help: 'The name of the vkey',
-        required: true,
-    })
+        console.log('Exporting verification contract...')
+        const verifier = genSnarkVerifierSol(verifierName, vKey)
 
-    parser.add_argument('-vs', '--verifier-name', {
-        help: 'The desired name of the verifier contract',
-        required: true,
-    })
-
-    const args = parser.parse_args()
-    const solOut = args.sol_out
-    const verifierName = args.verifier_name
-    const circuitName = args.circuit_name
-    const vKey = await getVKey(circuitName)
-
-    console.log('Exporting verification contract...')
-    const verifier = genSnarkVerifierSol(verifierName, vKey)
-
-    fs.writeFileSync(solOut, verifier)
+        fs.writeFileSync(solOut, verifier)
+        fs.copyFileSync(solOut, path.join(verifiersPath, `${verifierName}.sol`))
+    }
     return 0
 }
 
