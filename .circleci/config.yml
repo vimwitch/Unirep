@@ -1,13 +1,24 @@
 version: 2.1
 workflows:
-    test_app:
+    lint_and_test:
         jobs:
             - build
             - lint
-            - test:
+            - core-test:
                 requires:
                   - build
-
+            - core-cli-test:
+                requires:
+                  - build
+            - circuits-test:
+                requires:
+                  - build
+            - contracts-test:
+                requires:
+                  - build
+            - crypto-test:
+                requires:
+                  - build
 jobs:
     build:
         docker:
@@ -23,6 +34,9 @@ jobs:
             - run:
                   name: Build
                   command: yarn build
+            - persist_to_workspace:
+                root: ~/
+                paths: project
     lint:
         docker:
             - image: node:14
@@ -37,10 +51,48 @@ jobs:
             - run:
                   name: Lint
                   command: yarn lint --check
-    test:
+    core-test:
         docker:
             - image: node:14
         steps:
+            - attach_workspace:
+                - at: ~/
             - run:
                   name: Test
-                  command: cd packages/core && yarn test
+                  command: yarn core test
+    core-cli-test:
+        docker:
+            - image: node:14
+        steps:
+            - attach_workspace:
+                - at: ~/
+            - run:
+                  name: Test
+                  command: yarn core test-cli
+    circuits-test:
+        docker:
+            - image: node:14
+        steps:
+            - attach_workspace:
+                - at: ~/
+            - run:
+                  name: Test
+                  command: yarn circuits test
+    contracts-test:
+        docker:
+            - image: node:14
+        steps:
+            - attach_workspace:
+                - at: ~/
+            - run:
+                  name: Test
+                  command: yarn contracts test
+    crypto-test:
+        docker:
+            - image: node:14
+        steps:
+            - attach_workspace:
+                - at: ~/
+            - run:
+                  name: Test
+                  command: yarn crypto test
