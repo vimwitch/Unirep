@@ -56,7 +56,7 @@ jobs:
             - image: node:14
         steps:
             - attach_workspace:
-                - at: ~/
+                at: ~/
             - run:
                   name: Test
                   command: yarn core test
@@ -65,7 +65,7 @@ jobs:
             - image: node:14
         steps:
             - attach_workspace:
-                - at: ~/
+                at: ~/
             - run:
                   name: Test
                   command: yarn core test-cli
@@ -74,7 +74,7 @@ jobs:
             - image: node:14
         steps:
             - attach_workspace:
-                - at: ~/
+                at: ~/
             - run:
                   name: Test
                   command: yarn circuits test
@@ -83,7 +83,7 @@ jobs:
             - image: node:14
         steps:
             - attach_workspace:
-                - at: ~/
+                at: ~/
             - run:
                   name: Test
                   command: yarn contracts test
@@ -92,7 +92,7 @@ jobs:
             - image: node:14
         steps:
             - attach_workspace:
-                - at: ~/
+                at: ~/
             - run:
                   name: Test
                   command: yarn crypto test
