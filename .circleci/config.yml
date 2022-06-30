@@ -4,7 +4,9 @@ workflows:
         jobs:
             - build
             - lint
-            - test
+            - test:
+              requires:
+                - build
 
 jobs:
     build:
@@ -36,19 +38,9 @@ jobs:
                   name: Lint
                   command: yarn lint --check
     test:
-        requires:
-            - build
+        docker:
+            - image: node:14
         steps:
-            - checkout
-            - run:
-                  name: Install Yarn
-                  command: curl -o- -L https://yarnpkg.com/install.sh | bash
-            - run:
-                  name: Install Packages
-                  command: yarn
-            - run:
-                  name: Build
-                  command: yarn build
             - run:
                   name: Test
                   command: cd packages/core && yarn test
