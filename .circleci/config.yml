@@ -5,8 +5,8 @@ workflows:
             - build
             - lint
             - test:
-              requires:
-                - build
+                requires:
+                  - build
 
 jobs:
     build:
