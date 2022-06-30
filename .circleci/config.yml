@@ -35,8 +35,17 @@ jobs:
                   name: Build
                   command: yarn build
             - persist_to_workspace:
-                root: ~/
-                paths: project
+                root: ~/project
+                paths:
+                    - packages/circuits/zksnarkBuild
+                    - packages/circuits/dist
+                    - packages/contracts/build
+                    - packages/contracts/cache
+                    - packages/contracts/typechain
+                    - packages/contracts/vbuild
+                    - packages/core/build
+                    - packages/core/cache
+                    - packages/crypto/build
     lint:
         docker:
             - image: node:14
@@ -55,8 +64,12 @@ jobs:
         docker:
             - image: node:14
         steps:
+            - checkout
+            - run:
+                  name: Install Packages
+                  command: yarn
             - attach_workspace:
-                at: ~/
+                at: ~/project
             - run:
                   name: Test
                   command: yarn core test
@@ -64,8 +77,12 @@ jobs:
         docker:
             - image: node:14
         steps:
+            - checkout
+            - run:
+                  name: Install Packages
+                  command: yarn
             - attach_workspace:
-                at: ~/
+                at: ~/project
             - run:
                   name: Test
                   command: yarn core test-cli
@@ -73,8 +90,12 @@ jobs:
         docker:
             - image: node:14
         steps:
+            - checkout
+            - run:
+                  name: Install Packages
+                  command: yarn
             - attach_workspace:
-                at: ~/
+                at: ~/project
             - run:
                   name: Test
                   command: yarn circuits test
@@ -82,8 +103,12 @@ jobs:
         docker:
             - image: node:14
         steps:
+            - checkout
+            - run:
+                  name: Install Packages
+                  command: yarn
             - attach_workspace:
-                at: ~/
+                at: ~/project
             - run:
                   name: Test
                   command: yarn contracts test
@@ -91,8 +116,12 @@ jobs:
         docker:
             - image: node:14
         steps:
+            - checkout
+            - run:
+                  name: Install Packages
+                  command: yarn
             - attach_workspace:
-                at: ~/
+                at: ~/project
             - run:
                   name: Test
                   command: yarn crypto test
