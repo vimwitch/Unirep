@@ -2,13 +2,28 @@ version: 2.1
 workflows:
     test_app:
         jobs:
+            - build
             - lint
             - test
 
 jobs:
+    build:
+        docker:
+            - image: node:14
+        steps:
+            - checkout
+            - run:
+                  name: Install Yarn
+                  command: curl -o- -L https://yarnpkg.com/install.sh | bash
+            - run:
+                  name: Install Packages
+                  command: yarn
+            - run:
+                  name: Build
+                  command: yarn build
     lint:
-        machine:
-            image: ubuntu-2004:202111-01
+        docker:
+            - image: node:14
         steps:
             - checkout
             - run:
@@ -21,8 +36,8 @@ jobs:
                   name: Lint
                   command: yarn lint --check
     test:
-        machine:
-            image: ubuntu-2004:202111-01
+        requires:
+            - build
         steps:
             - checkout
             - run:
