@@ -25,6 +25,7 @@ jobs:
             image: ubuntu-2204:2022.04.1
         steps:
             - checkout
+            - run: nvm install v14 && nvm use v14
             - run:
                   name: Install Yarn
                   command: curl -o- -L https://yarnpkg.com/install.sh | bash
