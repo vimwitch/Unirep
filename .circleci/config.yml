@@ -19,6 +19,16 @@ workflows:
             - crypto-test:
                   requires:
                       - build
+
+defs:
+    steps:
+        - run: &node_version
+              name: Set Node version
+              command: |
+                  nvm install v14
+                  nvm alias default v14
+                  echo "nvm use default" >> $BASH_ENV
+
 jobs:
     build:
         machine:
@@ -28,12 +38,7 @@ jobs:
             - run:
                   name: Install Yarn
                   command: curl -o- -L https://yarnpkg.com/install.sh | bash
-            - run:
-                  name: Set node version
-                  command: |
-                      nvm install v14
-                      nvm alias default v14
-                      echo "nvm use default" >> $BASH_ENV
+            - run: *node_version
             - run: node --version
             - run:
                   name: Install Packages
