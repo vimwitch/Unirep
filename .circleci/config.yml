@@ -100,7 +100,7 @@ jobs:
                   name: Test
                   command: yarn circuits test
     contracts-test:
-        resource_class: medium
+        resource_class: large
         machine:
             image: ubuntu-2204:2022.04.1
         steps:
