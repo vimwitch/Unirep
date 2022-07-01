@@ -5,20 +5,20 @@ workflows:
             - build
             - lint
             - core-test:
-                requires:
-                  - build
+                  requires:
+                      - build
             - core-cli-test:
-                requires:
-                  - build
+                  requires:
+                      - build
             - circuits-test:
-                requires:
-                  - build
+                  requires:
+                      - build
             - contracts-test:
-                requires:
-                  - build
+                  requires:
+                      - build
             - crypto-test:
-                requires:
-                  - build
+                  requires:
+                      - build
 jobs:
     build:
         docker:
@@ -35,17 +35,18 @@ jobs:
                   name: Build
                   command: yarn build
             - persist_to_workspace:
-                root: ~/project
-                paths:
-                    - packages/circuits/zksnarkBuild
-                    - packages/circuits/dist
-                    - packages/contracts/build
-                    - packages/contracts/cache
-                    - packages/contracts/typechain
-                    - packages/contracts/vbuild
-                    - packages/core/build
-                    - packages/core/cache
-                    - packages/crypto/build
+                  root: ~/project
+                  paths:
+                      - node_modules
+                      - packages/circuits/zksnarkBuild
+                      - packages/circuits/dist
+                      - packages/contracts/build
+                      - packages/contracts/cache
+                      - packages/contracts/typechain
+                      - packages/contracts/vbuild
+                      - packages/core/build
+                      - packages/core/cache
+                      - packages/crypto/build
     lint:
         docker:
             - image: node:14
@@ -66,11 +67,8 @@ jobs:
             - image: node:14
         steps:
             - checkout
-            - run:
-                  name: Install Packages
-                  command: yarn
             - attach_workspace:
-                at: ~/project
+                  at: ~/project
             - run:
                   name: Test
                   command: |
@@ -82,11 +80,8 @@ jobs:
             - image: node:14
         steps:
             - checkout
-            - run:
-                  name: Install Packages
-                  command: yarn
             - attach_workspace:
-                at: ~/project
+                  at: ~/project
             - run:
                   name: Test
                   command: yarn core test-cli
@@ -95,11 +90,8 @@ jobs:
             - image: node:14
         steps:
             - checkout
-            - run:
-                  name: Install Packages
-                  command: yarn
             - attach_workspace:
-                at: ~/project
+                  at: ~/project
             - run:
                   name: Test
                   command: yarn circuits test
@@ -108,11 +100,8 @@ jobs:
             - image: node:14
         steps:
             - checkout
-            - run:
-                  name: Install Packages
-                  command: yarn
             - attach_workspace:
-                at: ~/project
+                  at: ~/project
             - run:
                   name: Test
                   command: yarn contracts test
@@ -121,11 +110,8 @@ jobs:
             - image: node:14
         steps:
             - checkout
-            - run:
-                  name: Install Packages
-                  command: yarn
             - attach_workspace:
-                at: ~/project
+                  at: ~/project
             - run:
                   name: Test
                   command: yarn crypto test
