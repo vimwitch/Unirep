@@ -21,14 +21,16 @@ workflows:
                       - build
 
 # Just for reusing below
-defs:
-    steps:
-        - run: &node_version
-              name: Set Node version
-              command: |
-                  nvm install v14
-                  nvm alias default v14
-                  echo "nvm use default" >> $BASH_ENV
+step_defs:
+    - run: &node_version
+          name: Set Node version
+          command: |
+              nvm install v14
+              nvm alias default v14
+              echo "nvm use default" >> $BASH_ENV
+    - run: &check_version
+          name: Check Node version
+          command: node -v | grep v14
 
 jobs:
     build:
@@ -36,11 +38,8 @@ jobs:
             image: ubuntu-2204:2022.04.1
         steps:
             - checkout
-            - run:
-                  name: Install Yarn
-                  command: curl -o- -L https://yarnpkg.com/install.sh | bash
             - run: *node_version
-            - run: node --version | grep "node v14"
+            - run: *check_version
             - run:
                   name: Install Packages
                   command: yarn
@@ -66,6 +65,8 @@ jobs:
         resource_class: medium
         steps:
             - checkout
+            - run: *node_version
+            - run: *check_version
             - run:
                   name: Install Yarn
                   command: curl -o- -L https://yarnpkg.com/install.sh | bash
@@ -82,6 +83,8 @@ jobs:
             image: ubuntu-2204:2022.04.1
         steps:
             - checkout
+            - run: *node_version
+            - run: *check_version
             - attach_workspace:
                   at: ~/project
             - run:
@@ -96,6 +99,8 @@ jobs:
             image: ubuntu-2204:2022.04.1
         steps:
             - checkout
+            - run: *node_version
+            - run: *check_version
             - attach_workspace:
                   at: ~/project
             - run:
@@ -107,6 +112,8 @@ jobs:
             image: ubuntu-2204:2022.04.1
         steps:
             - checkout
+            - run: *node_version
+            - run: *check_version
             - attach_workspace:
                   at: ~/project
             - run:
@@ -118,6 +125,8 @@ jobs:
             image: ubuntu-2204:2022.04.1
         steps:
             - checkout
+            - run: *node_version
+            - run: *check_version
             - attach_workspace:
                   at: ~/project
             - run:
@@ -129,6 +138,8 @@ jobs:
             image: ubuntu-2204:2022.04.1
         steps:
             - checkout
+            - run: *node_version
+            - run: *check_version
             - attach_workspace:
                   at: ~/project
             - run:
