@@ -21,8 +21,8 @@ workflows:
                       - build
 jobs:
     build:
-        docker:
-            - image: node:14
+        machine:
+            image: ubuntu-2204:2022.04.1
         steps:
             - checkout
             - run:
@@ -48,8 +48,8 @@ jobs:
                       - packages/core/cache
                       - packages/crypto/build
     lint:
-        docker:
-            - image: node:14
+        machine:
+            image: ubuntu-2204:2022.04.1
         steps:
             - checkout
             - run:
@@ -63,8 +63,8 @@ jobs:
                   command: yarn lint --check
     core-test:
         parallelism: 4
-        docker:
-            - image: node:14
+        machine:
+            image: ubuntu-2204:2022.04.1
         steps:
             - checkout
             - attach_workspace:
@@ -73,10 +73,10 @@ jobs:
                   name: Test
                   command: |
                       TEST_FILES=$(circleci tests glob "packages/core/test/**/*.test.ts" | circleci tests split)
-                      cd packages/core && npx hardhat test --parallel $TEST_FILES
+                      npx hardhat test --parallel $TEST_FILES
     core-cli-test:
-        docker:
-            - image: node:14
+        machine:
+            image: ubuntu-2204:2022.04.1
         steps:
             - checkout
             - attach_workspace:
@@ -85,8 +85,8 @@ jobs:
                   name: Test
                   command: yarn core test-cli
     circuits-test:
-        docker:
-            - image: node:14
+        machine:
+            image: ubuntu-2204:2022.04.1
         steps:
             - checkout
             - attach_workspace:
@@ -95,8 +95,8 @@ jobs:
                   name: Test
                   command: yarn circuits test
     contracts-test:
-        docker:
-            - image: node:14
+        machine:
+            image: ubuntu-2204:2022.04.1
         steps:
             - checkout
             - attach_workspace:
@@ -105,8 +105,8 @@ jobs:
                   name: Test
                   command: yarn contracts test
     crypto-test:
-        docker:
-            - image: node:14
+        machine:
+            image: ubuntu-2204:2022.04.1
         steps:
             - checkout
             - attach_workspace:
