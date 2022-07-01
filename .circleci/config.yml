@@ -61,6 +61,7 @@ jobs:
                   name: Lint
                   command: yarn lint --check
     core-test:
+        parallelism: 4
         docker:
             - image: node:14
         steps:
@@ -72,7 +73,10 @@ jobs:
                 at: ~/project
             - run:
                   name: Test
-                  command: yarn core test
+                  command: |
+                      TEST=$(circleci tests glob "packages/core/test/**/*.test.ts" | circleci tests split)
+                      echo $TEST
+                      yarn core test
     core-cli-test:
         docker:
             - image: node:14
