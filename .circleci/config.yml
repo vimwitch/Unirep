@@ -50,7 +50,7 @@ jobs:
     lint:
         machine:
             image: ubuntu-2204:2022.04.1
-        resource_class: small
+        resource_class: medium
         steps:
             - checkout
             - run:
@@ -63,8 +63,8 @@ jobs:
                   name: Lint
                   command: yarn lint --check
     core-test:
-        parallelism: 4
-        resource_class: medium
+        parallelism: 2
+        resource_class: large
         machine:
             image: ubuntu-2204:2022.04.1
         steps:
@@ -111,7 +111,7 @@ jobs:
                   name: Test
                   command: yarn contracts test
     crypto-test:
-        resource_class: small
+        resource_class: medium
         machine:
             image: ubuntu-2204:2022.04.1
         steps:
