@@ -40,7 +40,7 @@ jobs:
                   name: Install Yarn
                   command: curl -o- -L https://yarnpkg.com/install.sh | bash
             - run: *node_version
-            - run: node --version | grep v16
+            - run: node --version | grep "node v14"
             - run:
                   name: Install Packages
                   command: yarn
