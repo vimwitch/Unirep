@@ -73,7 +73,7 @@ jobs:
                   name: Test
                   command: |
                       TEST_FILES=$(circleci tests glob "packages/core/test/**/*.test.ts" | circleci tests split)
-                      npx hardhat test --parallel $TEST_FILES
+                      yarn core test-ci $TEST_FILES
     core-cli-test:
         machine:
             image: ubuntu-2204:2022.04.1
