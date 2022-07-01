@@ -72,8 +72,9 @@ jobs:
             - run:
                   name: Test
                   command: |
-                      TEST_FILES=$(circleci tests glob "packages/core/test/**/*.test.ts" | circleci tests split)
-                      yarn core test-ci $TEST_FILES
+                      cd packages/core
+                      TEST_FILES=$(circleci tests glob "test/**/*.test.ts" | circleci tests split)
+                      yarn test-ci $TEST_FILES
     core-cli-test:
         machine:
             image: ubuntu-2204:2022.04.1
