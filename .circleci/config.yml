@@ -62,7 +62,7 @@ jobs:
                   name: Lint
                   command: yarn lint --check
     core-test:
-        parallelism: 4
+        parallelism: 2
         machine:
             image: ubuntu-2204:2022.04.1
         steps:
@@ -73,7 +73,7 @@ jobs:
                   name: Test
                   command: |
                       cd packages/core
-                      TEST_FILES=$(circleci tests glob "test/**/*.test.ts" | circleci tests split)
+                      TEST_FILES=$(circleci tests glob "test/*/*.test.ts" | circleci tests split)
                       yarn test-ci $TEST_FILES
     core-cli-test:
         machine:
