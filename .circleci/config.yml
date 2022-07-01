@@ -30,7 +30,10 @@ jobs:
                   command: curl -o- -L https://yarnpkg.com/install.sh | bash
             - run:
                   name: Set node version
-                  command: nvm install v14 && nvm alias default v14
+                  command: |
+                      nvm install v14
+                      nvm alias default v14
+                      echo "nvm use default" >> $BASH_ENV
             - run: node --version
             - run:
                   name: Install Packages
