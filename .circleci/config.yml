@@ -50,6 +50,7 @@ jobs:
     lint:
         machine:
             image: ubuntu-2204:2022.04.1
+        resource_class: medium
         steps:
             - checkout
             - run:
@@ -62,7 +63,8 @@ jobs:
                   name: Lint
                   command: yarn lint --check
     core-test:
-        parallelism: 1
+        parallelism: 2
+        resource_class: medium
         machine:
             image: ubuntu-2204:2022.04.1
         steps:
@@ -76,6 +78,7 @@ jobs:
                       TEST_FILES=$(circleci tests glob "test/*/*.test.ts" | circleci tests split)
                       yarn test-ci $TEST_FILES
     core-cli-test:
+        resource_class: medium
         machine:
             image: ubuntu-2204:2022.04.1
         steps:
@@ -86,6 +89,7 @@ jobs:
                   name: Test
                   command: yarn core test-cli
     circuits-test:
+        resource_class: medium
         machine:
             image: ubuntu-2204:2022.04.1
         steps:
@@ -96,6 +100,7 @@ jobs:
                   name: Test
                   command: yarn circuits test
     contracts-test:
+        resource_class: medium
         machine:
             image: ubuntu-2204:2022.04.1
         steps:
@@ -106,6 +111,7 @@ jobs:
                   name: Test
                   command: yarn contracts test
     crypto-test:
+        resource_class: small
         machine:
             image: ubuntu-2204:2022.04.1
         steps:
